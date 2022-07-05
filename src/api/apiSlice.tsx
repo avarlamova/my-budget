@@ -17,7 +17,7 @@ const baseQuery = fetchBaseQuery({
 
 const baseQueryWithReauth = async (args: any, api: any, extraOptions: any) => {
   let result = await baseQuery(args, api, extraOptions);
-  if (result?.error?.originalStatus === 403) {
+  if (result?.error?.status === 403) {
     //"forbidden"
     console.log("sending refresh token");
     const refreshResult = await baseQuery("/refresh", api, extraOptions);
@@ -25,7 +25,7 @@ const baseQueryWithReauth = async (args: any, api: any, extraOptions: any) => {
     if (refreshResult?.data) {
       const user = api.getState().auth.user;
       // store new token
-      api.dispatch(setCredentials({ ...refreshResult.data, user }));
+      api.dispatch(setCredentials({ ...(refreshResult.data as object), user })); //https://stackoverflow.com/questions/51189388/typescript-spread-types-may-only-be-created-from-object-types
       // retry original query with new token
       result = await baseQuery(args, api, extraOptions);
     } else {

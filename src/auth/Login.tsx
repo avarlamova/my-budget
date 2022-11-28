@@ -70,7 +70,7 @@ const Login = () => {
         {errorMessage}
       </div>
 
-      <h1>Employee Login</h1>
+      <h1>User Login</h1>
 
       <form onSubmit={handleSubmit}>
         <label htmlFor="username">Username:</label>

@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 
 interface UserProps {
   login: string;
@@ -16,4 +16,5 @@ export const UserLogin: React.FC<UserProps> = () => {
       <input ref={inputRef} />
     </div>
   );
+
 };

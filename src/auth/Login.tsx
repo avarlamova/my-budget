@@ -4,14 +4,26 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setCredentials } from "./authSlice";
 import { useLoginMutation } from "./authApiSlice";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { solid } from '@fortawesome/fontawesome-svg-core/import.macro' // <-- import styles to be used
+
+const USERNAME_REGEX = /^(?=.*[A-Za-z0-9]).{3,30}$/
 
 const Login = () => {
-  const userRef = React.useRef<HTMLInputElement>(null);
-  const errorRef = React.useRef<HTMLDivElement>(null);
+  const userRef = useRef<HTMLInputElement>(null);
+  const errorRef = useRef<HTMLDivElement>(null);
+
+  // const useUsernameValidation = (username: string) => {
+  //   return USERNAME_REGEX.test(username);
+  // };
+  
 
   const [user, setUser] = useState("");
+  const [validUsername, setValidUsername] = useState(false)
+  // const isUsernameValid = useUsernameValidation(user)
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+
   const navigate = useNavigate(); //https://reactrouter.com/docs/en/v6/hooks/use-navigate
 
   const [login, { isLoading }] = useLoginMutation();
@@ -21,14 +33,19 @@ const Login = () => {
     if (userRef && userRef.current) {
       userRef!.current.focus();
     }
-  }, []);
+  }, []); // no dependencies => when component loads
+
+  useEffect(() => {
+    const validationResult = USERNAME_REGEX.test(user);
+    setValidUsername(validationResult)
+  }, [user]) // validate username every time it changes
 
   useEffect(() => {
     setErrorMessage("");
   }, [user, password]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+    e.preventDefault(); // no form reloading on submit
     try {
       const userData = await login({ user, password }).unwrap();
       dispatch(setCredentials({ ...userData, user }));
@@ -73,6 +90,7 @@ const Login = () => {
       <h1>User Login</h1>
 
       <form onSubmit={handleSubmit}>
+      <FontAwesomeIcon icon={solid('user-secret')} />
         <label htmlFor="username">Username:</label>
         <input
           type="text"

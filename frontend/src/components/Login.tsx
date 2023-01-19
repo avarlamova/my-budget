@@ -2,24 +2,19 @@ import React from "react";
 import { useRef, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { setCredentials } from "./authSlice";
-import { useLoginMutation } from "./authApiSlice";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { solid } from '@fortawesome/fontawesome-svg-core/import.macro' // <-- import styles to be used
+import { setCredentials } from "../features/auth/authSlice";
+import { useLoginMutation } from "../features/auth/authApiSlice";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { solid } from "@fortawesome/fontawesome-svg-core/import.macro"; // <-- import styles to be used
 
-const USERNAME_REGEX = /^(?=.*[A-Za-z0-9]).{3,30}$/
+const USERNAME_REGEX = /^(?=.*[A-Za-z0-9]).{3,30}$/;
 
 const Login = () => {
   const userRef = useRef<HTMLInputElement>(null);
   const errorRef = useRef<HTMLDivElement>(null);
 
-  // const useUsernameValidation = (username: string) => {
-  //   return USERNAME_REGEX.test(username);
-  // };
-  
-
   const [user, setUser] = useState("");
-  const [validUsername, setValidUsername] = useState(false)
+  const [validUsername, setValidUsername] = useState(false);
   // const isUsernameValid = useUsernameValidation(user)
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -37,8 +32,8 @@ const Login = () => {
 
   useEffect(() => {
     const validationResult = USERNAME_REGEX.test(user);
-    setValidUsername(validationResult)
-  }, [user]) // validate username every time it changes
+    setValidUsername(validationResult);
+  }, [user]); // validate username every time it changes
 
   useEffect(() => {
     setErrorMessage("");
@@ -90,7 +85,7 @@ const Login = () => {
       <h1>User Login</h1>
 
       <form onSubmit={handleSubmit}>
-      <FontAwesomeIcon icon={solid('user-secret')} />
+        <FontAwesomeIcon icon={solid("user-secret")} />
         <label htmlFor="username">Username:</label>
         <input
           type="text"

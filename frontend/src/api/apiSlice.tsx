@@ -1,10 +1,10 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import type { RootState } from "../store";
 
-import { setCredentials, logOut } from "../auth/authSlice";
+import { setCredentials, logOut } from "../features/auth/authSlice";
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: "http://localhost:3000",
+  baseUrl: "http://localhost:3001", //backend address
   credentials: "include",
   prepareHeaders: (headers, { getState }) => {
     const token = (getState() as RootState).auth.token;
@@ -18,7 +18,7 @@ const baseQuery = fetchBaseQuery({
 const baseQueryWithReauth = async (args: any, api: any, extraOptions: any) => {
   let result = await baseQuery(args, api, extraOptions);
   if (result?.error?.status === 403) {
-    //"forbidden"
+    //"forbidden" for expired token
     console.log("sending refresh token");
     const refreshResult = await baseQuery("/refresh", api, extraOptions);
     console.log(refreshResult);

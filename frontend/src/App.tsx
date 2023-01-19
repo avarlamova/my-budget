@@ -2,9 +2,9 @@ import { UserLogin } from "./components/UserLogin";
 import { Routes, Route } from "react-router-dom";
 import Layout from "./components/Layout";
 import Home from "./components/Home";
-import Login from "./auth/Login";
-import Welcome from "./auth/Welcome";
-import RequireAuth from "./auth/RequireAuth";
+import Login from "./components/Login";
+import Welcome from "./components/Welcome";
+import RequireAuth from "./components/RequireAuth";
 
 import React from "react";
 

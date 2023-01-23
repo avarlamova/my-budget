@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
+const User = require("../model/User");
 
 const handleLogin = async (req, res) => {
   const cookies = req.cookies;
@@ -12,7 +13,7 @@ const handleLogin = async (req, res) => {
 
   const foundUser = await User.findOne({ username: user }).exec();
   if (!foundUser) return res.sendStatus(401); //Unauthorized
-  // evaluate password
+
   const match = await bcrypt.compare(pwd, foundUser.password);
   if (match) {
     const roles = Object.values(foundUser.roles).filter(Boolean);
@@ -34,8 +35,8 @@ const handleLogin = async (req, res) => {
     );
 
     let newRefreshTokenArray = !cookies?.jwt
-      ? foundUser.refreshToken
-      : foundUser.refreshToken.filter((rt) => rt !== cookies.jwt);
+      ? foundUser.refreshToken // data already in db
+      : foundUser.refreshToken.filter((rt) => rt !== cookies.jwt); // remove received token from db
 
     if (cookies?.jwt) {
       /* 
@@ -44,14 +45,14 @@ const handleLogin = async (req, res) => {
                 2) RT is stolen
                 3) If 1 & 2, reuse detection is needed to clear all RTs when user logs in
             */
-      const refreshToken = cookies.jwt;
-      const foundToken = await User.findOne({ refreshToken }).exec();
+      // const refreshToken = cookies.jwt;
+      // const foundToken = await User.findOne({ refreshToken }).exec();
 
-      // Detected refresh token reuse!
-      if (!foundToken) {
-        // clear out ALL previous refresh tokens
-        newRefreshTokenArray = [];
-      }
+      // // Detected refresh token reuse!
+      // if (!foundToken) {
+      //   // clear out ALL previous refresh tokens
+      //   newRefreshTokenArray = [];
+      // }
 
       res.clearCookie("jwt", {
         httpOnly: true,
@@ -62,11 +63,10 @@ const handleLogin = async (req, res) => {
 
     // Saving refreshToken with current user
     foundUser.refreshToken = [...newRefreshTokenArray, newRefreshToken];
-    // const result = await foundUser.save();
 
     res.cookie("jwt", newRefreshToken, {
       httpOnly: true,
-      secure: true,
+      // secure: true, // TODO uncomment
       sameSite: "None",
       maxAge: 24 * 60 * 60 * 1000, // 1 day
     });

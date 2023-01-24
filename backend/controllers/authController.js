@@ -26,12 +26,12 @@ const handleLogin = async (req, res) => {
         },
       },
       process.env.ACCESS_TOKEN_SECRET,
-      { expiresIn: "10s" } // TODO change for several minutes for production
+      { expiresIn: "10m" } // TODO change for several minutes for production
     );
     const newRefreshToken = jwt.sign(
       { username: foundUser.username },
       process.env.REFRESH_TOKEN_SECRET,
-      { expiresIn: "15s" } // TODO change for 1d for production
+      { expiresIn: "1m" } // TODO change for 1d for production
     );
 
     let newRefreshTokenArray = !cookies?.jwt
@@ -61,9 +61,9 @@ const handleLogin = async (req, res) => {
       });
     }
 
-    // Saving refreshToken with current user
+    // save refreshToken for current user
     foundUser.refreshToken = [...newRefreshTokenArray, newRefreshToken];
-
+    await foundUser.save();
     res.cookie("jwt", newRefreshToken, {
       httpOnly: true,
       // secure: true, // TODO uncomment

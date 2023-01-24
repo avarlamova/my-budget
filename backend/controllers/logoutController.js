@@ -4,6 +4,7 @@ const handleLogout = async (req, res) => {
   // TODO On client, also delete the accessToken
 
   const cookies = req.cookies;
+
   if (!cookies?.jwt) return res.sendStatus(204); //No content
   const refreshToken = cookies.jwt;
 
@@ -11,6 +12,7 @@ const handleLogout = async (req, res) => {
   const foundUser = await User.findOne({ refreshToken }).exec();
   if (!foundUser) {
     res.clearCookie("jwt", { httpOnly: true, sameSite: "None", secure: true });
+    console.log("15");
     return res.sendStatus(204); //success, no content
   }
 
@@ -19,7 +21,7 @@ const handleLogout = async (req, res) => {
     (rt) => rt !== refreshToken
   );
   const result = await foundUser.save();
-  console.log(result);
+  console.log("23");
 
   res.clearCookie("jwt", { httpOnly: true, sameSite: "None", secure: true }); // 'secure' - only https allowed
   res.sendStatus(204);

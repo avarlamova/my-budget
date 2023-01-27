@@ -5,10 +5,9 @@ const User = require("../model/User");
 const handleLogin = async (req, res) => {
   const cookies = req.cookies;
   // TODO check multilogin on frontend
-  const { user, pwd } = req.body;
+  const { user, password } = req.body;
 
-  console.log(user, pwd);
-  if (!user || !pwd)
+  if (!user || !password)
     return res
       .status(400)
       .json({ message: "Username and password are required" });
@@ -16,7 +15,7 @@ const handleLogin = async (req, res) => {
   const foundUser = await User.findOne({ username: user }).exec();
   if (!foundUser) return res.sendStatus(401); //Unauthorized
 
-  const match = await bcrypt.compare(pwd, foundUser.password);
+  const match = await bcrypt.compare(password, foundUser.password);
   if (match) {
     const roles = Object.values(foundUser.roles).filter(Boolean);
     // create JWTs

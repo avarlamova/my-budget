@@ -69,8 +69,9 @@ const Login = () => {
   const handleUserInput = (e: { target: HTMLInputElement }) =>
     setUser(e?.target.value);
 
-  const handlePasswordInput = (e: { target: HTMLInputElement }) =>
+  const handlePasswordInput = (e: { target: HTMLInputElement }) => {
     setPassword(e?.target.value);
+  };
 
   return isLoading ? ( // comes from useLoginMutation
     <h1>Loading...</h1>

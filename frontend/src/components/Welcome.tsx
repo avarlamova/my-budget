@@ -20,7 +20,7 @@ const Welcome = () => {
       <p>Token: {tokenAbbreviation} </p>
       <p>
         {" "}
-        <Link to="/userslist">Go to the users list</Link>
+        <Link to="/dashboard">Go to dashboard</Link>
       </p>
     </section>
   );

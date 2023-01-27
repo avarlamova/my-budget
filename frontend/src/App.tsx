@@ -7,6 +7,7 @@ import Welcome from "./components/Welcome";
 import RequireAuth from "./components/RequireAuth";
 
 import React from "react";
+import Dashboard from "./pages/Dashboard/Dashboard";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         {/* protected routes */}
         <Route element={<RequireAuth />}>
           <Route path="welcome" element={<Welcome />}></Route>
+          <Route path="dashboard" element={<Dashboard />}></Route>
         </Route>
       </Route>
     </Routes>

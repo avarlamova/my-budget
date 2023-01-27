@@ -46,16 +46,18 @@ const Login = () => {
       dispatch(setCredentials({ ...userData, user }));
       setUser("");
       setPassword("");
+      // if login is successful
       navigate("/welcome");
     } catch (err: any) {
+      console.log(err);
       if (!err?.originalStatus) {
-        setErrorMessage("Сервер не отвечает");
+        setErrorMessage("No server response");
       } else if (err.originalStatus === 400) {
-        setErrorMessage("Неверный логин или пароль");
+        setErrorMessage("Missing username or password");
       } else if (err.originalStatus === 401) {
         setErrorMessage("Unauthorized");
       } else {
-        setErrorMessage("Login Failed");
+        setErrorMessage("Login failed");
       }
       if (errorRef && errorRef.current) {
         //https://stackoverflow.com/questions/40349987/how-to-suppress-error-ts2533-object-is-possibly-null-or-undefined
@@ -74,13 +76,13 @@ const Login = () => {
     <h1>Loading...</h1>
   ) : (
     <section className="login">
-      <div
+      <p
         ref={errorRef}
         className={errorMessage ? "err-message" : "offscreen"}
         aria-live="assertive"
       >
         {errorMessage}
-      </div>
+      </p>
 
       <h1>User Login</h1>
 

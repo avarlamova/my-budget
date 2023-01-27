@@ -5,6 +5,7 @@ const cors = require("cors");
 const corsOptions = require("./config/corsOptions");
 const errorHandler = require("./config/errorHandler");
 const verifyJWT = require("./middlewares/verifyJWT");
+const staticMiddlware = require("./middlewares/staticMiddlware.js");
 const credentials = require("./middlewares/credentials");
 const mongoose = require("mongoose");
 const connectDB = require("./config/dbConnection");
@@ -22,6 +23,9 @@ app.use(cors(corsOptions));
 app.use(express.urlencoded({ extended: false }));
 // built-in middleware for json
 app.use(express.json());
+
+//static
+app.use(staticMiddlware);
 
 app.use(cookieParser());
 mongoose.connection.once("open", () => {

@@ -20,8 +20,9 @@ const handleLogout = async (req, res) => {
   foundUser.refreshToken = foundUser.refreshToken.filter(
     (rt) => rt !== refreshToken
   );
+  console.log("received rt", refreshToken);
+  console.log("all rt", foundUser.refreshToken);
   const result = await foundUser.save();
-  console.log("23");
 
   res.clearCookie("jwt", { httpOnly: true, sameSite: "None", secure: true }); // 'secure' - only https allowed
   res.sendStatus(204);

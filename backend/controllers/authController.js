@@ -4,8 +4,10 @@ const User = require("../model/User");
 
 const handleLogin = async (req, res) => {
   const cookies = req.cookies;
-
+  // TODO check multilogin on frontend
   const { user, pwd } = req.body;
+
+  console.log(user, pwd);
   if (!user || !pwd)
     return res
       .status(400)
@@ -26,12 +28,12 @@ const handleLogin = async (req, res) => {
         },
       },
       process.env.ACCESS_TOKEN_SECRET,
-      { expiresIn: "10m" } // TODO change for several minutes for production
+      { expiresIn: "10s" }
     );
     const newRefreshToken = jwt.sign(
       { username: foundUser.username },
       process.env.REFRESH_TOKEN_SECRET,
-      { expiresIn: "1m" } // TODO change for 1d for production
+      { expiresIn: "15s" }
     );
 
     let newRefreshTokenArray = !cookies?.jwt
@@ -45,14 +47,14 @@ const handleLogin = async (req, res) => {
                 2) RT is stolen
                 3) If 1 & 2, reuse detection is needed to clear all RTs when user logs in
             */
-      // const refreshToken = cookies.jwt;
-      // const foundToken = await User.findOne({ refreshToken }).exec();
+      const refreshToken = cookies.jwt;
+      const foundToken = await User.findOne({ refreshToken }).exec();
 
-      // // Detected refresh token reuse!
-      // if (!foundToken) {
-      //   // clear out ALL previous refresh tokens
-      //   newRefreshTokenArray = [];
-      // }
+      // Detected refresh token reuse!
+      if (!foundToken) {
+        // clear out ALL previous refresh tokens
+        newRefreshTokenArray = [];
+      }
 
       res.clearCookie("jwt", {
         httpOnly: true,

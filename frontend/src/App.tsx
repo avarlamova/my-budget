@@ -5,6 +5,7 @@ import Home from "./components/Home";
 import Login from "./components/Login";
 import Welcome from "./components/Welcome";
 import RequireAuth from "./components/RequireAuth";
+import "./App.css";
 
 import React from "react";
 import Dashboard from "./pages/Dashboard/Dashboard";
@@ -17,10 +18,10 @@ function App() {
         <Route index element={<Home />}></Route>
         <Route path="login" element={<Login />}></Route>
         {/* protected routes */}
-        <Route element={<RequireAuth />}>
-          <Route path="welcome" element={<Welcome />}></Route>
-          <Route path="dashboard" element={<Dashboard />}></Route>
-        </Route>
+        {/* <Route element={<RequireAuth />}> */}
+        <Route path="welcome" element={<Welcome />}></Route>
+        <Route path="dashboard" element={<Dashboard />}></Route>
+        {/* </Route> */}
       </Route>
     </Routes>
   );

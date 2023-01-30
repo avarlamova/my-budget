@@ -7,7 +7,6 @@ const baseQuery = fetchBaseQuery({
   baseUrl: "http://localhost:3001", //backend address
   credentials: "include",
   prepareHeaders: (headers, { getState }) => {
-    console.log(getState());
     const token = (getState() as RootState).auth.token;
     if (token) {
       headers.set("authorization", `Bearer ${token}`);
@@ -30,6 +29,7 @@ const baseQueryWithReauth = async (args: any, api: any, extraOptions: any) => {
       // retry original query with new token
       result = await baseQuery(args, api, extraOptions);
     } else {
+      console.log("no data");
       api.dispatch(logOut());
     }
   }

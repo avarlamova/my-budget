@@ -1,10 +1,3 @@
-const data = {};
-data.employees = require("../model/employees.json");
-
-const getAllEmployees = (req, res) => {
-  res.json(data.employees);
-};
-
 const getUser = (req, res) => {
   res.json({
     id: req.body.id,

@@ -1,4 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
+import { setupListeners } from "@reduxjs/toolkit/dist/query";
 import { apiSlice } from "./api/apiSlice";
 import authReducer from "./features/auth/authSlice";
 
@@ -13,3 +14,5 @@ export const store = configureStore({
 });
 
 export type RootState = ReturnType<typeof store.getState>;
+//refetchOnFocus/refetchOnReconnect
+// setupListeners(store.dispatch);

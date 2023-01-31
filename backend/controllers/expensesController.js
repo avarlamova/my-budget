@@ -8,7 +8,7 @@ const getUserExpenses = async (req, res) => {
   if (!expenses) {
     return res.status(204).json({ message: `User ${req.params.id} not found` });
   }
-  console.log(expenses);
+  //   console.log(expenses);
   res.json(expenses);
 };
 

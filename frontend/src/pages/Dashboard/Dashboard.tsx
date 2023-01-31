@@ -6,25 +6,11 @@ import Income from "./Income";
 // import NewExpense from "./NewExpense";
 import { ReactComponent as AddIcon } from "../../assets/Add.svg";
 import styles from "./Dashboard.module.scss";
-import { selectCurrentUser } from "../../features/auth/authSlice";
-import { useSelector } from "react-redux";
-import { useExpensesMutation } from "../../features/expenses/expensesApiSlice";
 
 // toggle: see transactions/see categories
 // есть historic data + filters
 // есть несколько категорий
 const Dashboard = () => {
-  const user = useSelector(selectCurrentUser);
-  const [expenses] = useExpensesMutation();
-
-  useEffect(() => {
-    async function fetchData() {
-      const userData = await expenses({ user }).unwrap();
-      console.log(userData);
-    }
-    fetchData();
-  }, []); // no dependencies => when component loads
-
   return (
     <>
       <CurrentMonth />

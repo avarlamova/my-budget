@@ -10,6 +10,8 @@ const expenseSchema = new Schema({
   amount: Number, //Decimal128
   category: String,
   colorCategory: String,
+  month: String,
+  year: String,
   //   attachment: {
   //     type: file,
   //     required: false,

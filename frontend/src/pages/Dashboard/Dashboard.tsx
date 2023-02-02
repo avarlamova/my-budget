@@ -4,7 +4,7 @@ import Expenses from "./Expenses";
 import Income from "./Income";
 // import ModalWrapper from "./ModalWrapper";
 // import NewExpense from "./NewExpense";
-import { ReactComponent as AddIcon } from "../../assets/Add.svg";
+import { ReactComponent as AddIcon } from "../../assets/icons/Add.svg";
 import styles from "./Dashboard.module.scss";
 
 // toggle: see transactions/see categories

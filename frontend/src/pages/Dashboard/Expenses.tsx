@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useExpensesMutation } from "../../features/expenses/expensesApiSlice";
 import {
   getMemoizedBudget,
+  selectCategorizedExpenses,
   selectMonthlyBudget,
   setExpenses,
 } from "../../features/expenses/expensesSlice";
@@ -15,6 +16,7 @@ const Expenses = () => {
   const monthlyBudget = useSelector(selectMonthlyBudget);
   const budget = useSelector(getMemoizedBudget);
   const [expenses] = useExpensesMutation();
+  const categorizedExpenses = useSelector(selectCategorizedExpenses);
   const dispatch = useDispatch();
   useEffect(() => {
     async function fetchData() {
@@ -22,8 +24,7 @@ const Expenses = () => {
       dispatch(setExpenses({ user: user, expenses: expensesData }));
     }
     fetchData();
-    console.log("b is", budget);
-  }, []); // no dependencies => when component loads
+  }, [user]); // no dependencies => when component loads
 
   return (
     <>
@@ -41,8 +42,12 @@ const Expenses = () => {
         <div className={styles.diagram}></div>
         {/* Add new expense <ModalWrapper children={<NewExpense />} /> */}
       </div>
-      {/* overall spending blocks */}
-      <ExpenseCategory />
+      {categorizedExpenses &&
+        Object.keys(categorizedExpenses).map((key) => {
+          return (
+            <ExpenseCategory category={key} value={categorizedExpenses[key]} />
+          );
+        })}
     </>
   );
 };

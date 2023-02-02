@@ -1,51 +1,71 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { useMemo } from "react";
-import { useSelector } from "react-redux";
-import { createSelector } from "reselect";
+import { createSelector } from "@reduxjs/toolkit";
+import { RootState } from "../../store";
 
+//TODO add currency selection
 interface ExpensesState {
   userLogin: string;
   expenses: [];
+  expensesByCategory: any;
   monthlyBudget: number;
 }
 
 const initialState: ExpensesState = {
   userLogin: "",
   expenses: [],
+  expensesByCategory: {},
   monthlyBudget: 0,
 };
 
-//TODO memorize monthly budget
 const expensesSlice = createSlice({
   name: "expenses",
   initialState,
   reducers: {
     setExpenses: (state, action) => {
       const userLogin = action.payload.user;
-      const expenses = action.payload.expenses;
+      const expenses: any = action.payload.expenses;
+      let expensesByCategory: any = {};
+      for (const item of expenses) {
+        if (expensesByCategory.hasOwnProperty(item.category)) {
+          expensesByCategory[item.category] += item.amount;
+        } else expensesByCategory[item.category] = item.amount;
+      }
       return {
         userLogin: userLogin,
         expenses: expenses,
         monthlyBudget: 1000,
+        expensesByCategory: expensesByCategory,
       };
     },
   },
 });
 
 export const { setExpenses } = expensesSlice.actions;
-export const selectMonthlyBudget = (state: ExpensesState) =>
-  state.monthlyBudget;
 
-export const selectExpenses = (state: ExpensesState) => state.expenses;
+export const selectMonthlyBudget = (state: RootState) =>
+  state.expenses.monthlyBudget;
 
-export const getMemoizedBudget = createSelector(selectExpenses, (expenses) => {
-  // console.log(initialState);
-  // let budgetLeft = monthlyBudget;
-  console.log(expenses);
-  // if (expenses.length > 0) {
-  //   budgetLeft =
-  //     monthlyBudget - expenses.reduce((partialSum, a) => partialSum + a, 0);
-  // }
-  return 300; //budgetLeft;
+export const selectExpenses = (state: RootState) => state.expenses.expenses;
+
+const selectExpensesSum = createSelector(selectExpenses, (expenses) => {
+  if (expenses.length > 0) {
+    return expenses.reduce(
+      (subtotal: number, item: { amount: number }) => subtotal + item.amount,
+      0
+    );
+  }
+  return 0;
 });
+
+export const getMemoizedBudget = createSelector(
+  selectExpensesSum,
+  selectMonthlyBudget,
+  (sum, monthlyBudget) => {
+    return monthlyBudget - sum;
+  }
+);
+
+export const selectCategorizedExpenses = (state: RootState) =>
+  state.expenses.expensesByCategory;
+
 export default expensesSlice.reducer;

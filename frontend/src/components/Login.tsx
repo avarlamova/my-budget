@@ -88,27 +88,31 @@ const Login = () => {
       <h1>User Login</h1>
 
       <form onSubmit={handleSubmit}>
-        <FontAwesomeIcon icon={solid("user-secret")} />
-        <label htmlFor="username">Username:</label>
-        <input
-          type="text"
-          id="username"
-          ref={userRef}
-          value={user}
-          onChange={handleUserInput}
-          autoComplete="off"
-          required
-        />
+        <div>
+          <FontAwesomeIcon icon={solid("user-secret")} />
+          <label htmlFor="username">Username:</label>
+          <input
+            type="text"
+            id="username"
+            ref={userRef}
+            value={user}
+            onChange={handleUserInput}
+            autoComplete="off"
+            required
+          />
+        </div>
 
-        <label htmlFor="password">Password:</label>
-        <input
-          type="password"
-          id="password"
-          onChange={handlePasswordInput}
-          value={password}
-          required
-        />
-        <button>Sign In</button>
+        <div>
+          <label htmlFor="password">Password:</label>
+          <input
+            type="password"
+            id="password"
+            onChange={handlePasswordInput}
+            value={password}
+            required
+          />
+          <button>Sign In</button>
+        </div>
       </form>
     </section>
   );

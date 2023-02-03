@@ -2,7 +2,6 @@ import { createSlice } from "@reduxjs/toolkit";
 import { createSelector } from "@reduxjs/toolkit";
 import { RootState } from "../../store";
 
-//TODO add currency selection
 interface ExpensesState {
   userLogin: string;
   expenses: [];

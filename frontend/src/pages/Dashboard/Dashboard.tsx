@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import CurrentMonth from "./CurrentMonth";
+import MonthFilter from "./MonthFilter";
 import Expenses from "./Expenses";
 import Income from "./Income";
 // import ModalWrapper from "./ModalWrapper";
@@ -13,7 +13,7 @@ import styles from "./Dashboard.module.scss";
 const Dashboard = () => {
   return (
     <>
-      <CurrentMonth />
+      <MonthFilter />
       <Income />
       <Expenses />
       <AddIcon className={styles.addIcon} />

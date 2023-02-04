@@ -2,3 +2,17 @@
   font-family: "DM Sans", sans-serif;
   background-color: #ffffff;
 } */
+
+#root {
+  width: 375px;
+  height: 100vh;
+  margin: 0 auto;
+  /* background: linear-gradient(
+    174.21deg,
+    rgba(255, 255, 255, 0.01) 4.53%,
+    rgba(255, 255, 255, 0) 95.34%
+  );
+  backdrop-filter: blur(7.5px); */
+  background: #fcfcfd;
+  border-radius: 12px;
+}

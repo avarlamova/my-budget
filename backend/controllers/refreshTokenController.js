@@ -57,14 +57,14 @@ const handleRefreshToken = async (req, res) => {
           },
         },
         process.env.ACCESS_TOKEN_SECRET,
-        { expiresIn: "10s" }
+        { expiresIn: "30m" }
       );
 
       // new refresh token is sent every time a new access token is created
       const newRefreshToken = jwt.sign(
         { username: foundUser.username },
         process.env.REFRESH_TOKEN_SECRET,
-        { expiresIn: "15s" }
+        { expiresIn: "30d" }
       );
 
       foundUser.refreshToken = [...newRefreshTokenArray, newRefreshToken];

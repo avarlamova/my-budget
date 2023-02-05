@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import styles from "./CustomSelect.module.scss";
+import { ReactComponent as FilterIcon } from "../../assets/icons/arrowDown.svg";
+
 const CustomSelect = ({ selectText, options }: any) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -9,7 +11,10 @@ const CustomSelect = ({ selectText, options }: any) => {
 
   return (
     <>
-      <button onClick={handleClick}>{selectText}</button>
+      <div className={styles.container} onClick={handleClick}>
+        <button className={styles.button}>{selectText}</button>
+        <FilterIcon className={styles.icon} />
+      </div>
       {isOpen && (
         <ul className={styles.list}>
           {options.map((option: any) => (

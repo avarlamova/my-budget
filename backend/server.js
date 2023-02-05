@@ -9,10 +9,8 @@ const staticMiddlware = require("./middlewares/staticMiddlware.js");
 const credentials = require("./middlewares/credentials");
 const mongoose = require("mongoose");
 const connectDB = require("./config/dbConnection");
-
-const cookieParser = require("cookie-parser");
-
 const PORT = process.env.PORT || 3001;
+const cookieParser = require("cookie-parser");
 
 connectDB();
 
@@ -20,6 +18,8 @@ connectDB();
 app.use(credentials);
 
 app.use(cors(corsOptions));
+app.use(cookieParser());
+
 app.use(express.urlencoded({ extended: false }));
 // built-in middleware for json
 app.use(express.json());

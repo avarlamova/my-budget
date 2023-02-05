@@ -1,12 +1,46 @@
+.container {
+  display: flex;
+  gap: 4px;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+}
+.button {
+  font-family: inherit;
+  font-size: 16px;
+  border: 0;
+  outline: none;
+  background-color: inherit;
+  padding: 8;
+}
+
+.icon {
+  width: 12px;
+  height: 12px;
+}
+
 .list {
-  padding-top: 10px;
+  font-family: inherit;
+
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  align-items: center;
+  gap: 20px;
   width: 168px;
   max-height: 146px;
-  background: #d8d7d7;
+  border-radius: 6px;
   border-radius: 0px 0px 3px 3px;
-  padding-bottom: 10px;
   overflow-y: scroll;
 }
 
 .listItem {
+  list-style: none;
+  font-size: 14px;
+  line-height: 100%;
+  cursor: pointer;
+
+  :hover {
+    color: #176af6;
+  }
 }

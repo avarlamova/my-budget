@@ -21,10 +21,11 @@ const Expenses = () => {
   useEffect(() => {
     async function fetchData() {
       const expensesData = await expenses({ user }).unwrap();
+      console.log(expensesData);
       dispatch(setExpenses({ user: user, expenses: expensesData }));
     }
     fetchData();
-  }, [user]); // no dependencies => when component loads
+  }, []); // no dependencies => when component loads
 
   return (
     <>

@@ -1,4 +1,3 @@
-import { UserLogin } from "./components/UserLogin";
 import { Routes, Route } from "react-router-dom";
 import Layout from "./components/Layout";
 import Home from "./components/Home";
@@ -9,6 +8,7 @@ import "./App.css";
 
 import React from "react";
 import Dashboard from "./pages/Dashboard/Dashboard";
+import Register from "./components/Register";
 
 function App() {
   return (
@@ -17,11 +17,13 @@ function App() {
         {/* public routes */}
         <Route index element={<Home />}></Route>
         <Route path="login" element={<Login />}></Route>
+        <Route path="register" element={<Register />}></Route>
+
         {/* protected routes */}
-        {/* <Route element={<RequireAuth />}> */}
-        <Route path="welcome" element={<Welcome />}></Route>
-        <Route path="dashboard" element={<Dashboard />}></Route>
-        {/* </Route> */}
+        <Route element={<RequireAuth />}>
+          <Route path="welcome" element={<Welcome />}></Route>
+          <Route path="dashboard" element={<Dashboard />}></Route>
+        </Route>
       </Route>
     </Routes>
   );

@@ -1,0 +1,64 @@
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  border: 1px solid #f1f1fa;
+  -webkit-text-fill-color: #908ba6;
+  -webkit-box-shadow: 0 0 0px 1000px #fff inset;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+h1 {
+  padding: 0;
+  margin: 0;
+}
+
+.container {
+  padding: 44px 16px;
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.field {
+  padding: 8px 16px;
+  background: #ffffff;
+  border: 1px solid #f1f1fa;
+  border-radius: 16px;
+  color: #91919f;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 18px;
+  & input {
+    width: 303px;
+    height: 56px;
+
+    &:focus {
+      outline: none;
+    }
+  }
+}
+
+.signUpBtn {
+  padding: 8px;
+  gap: 10px;
+  width: 343px;
+  height: 56px;
+  left: 16px;
+  top: 460px;
+  background: #6347eb;
+  border-radius: 16px;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 22px;
+  color: #ffffff;
+  border: none;
+}

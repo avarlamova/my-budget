@@ -3,13 +3,13 @@ import { useRef, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setCredentials } from "../features/auth/authSlice";
-import { useLoginMutation } from "../features/auth/authApiSlice";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { solid } from "@fortawesome/fontawesome-svg-core/import.macro"; // <-- import styles to be used
+import { ReactComponent as ShowIcon } from "../assets/icons/show.svg";
+
+import styles from "./Register.module.scss";
 
 const USERNAME_REGEX = /^(?=.*[A-Za-z0-9]).{3,30}$/;
 
-const Login = () => {
+const Register = () => {
   const userRef = useRef<HTMLInputElement>(null);
   const errorRef = useRef<HTMLDivElement>(null);
 
@@ -21,7 +21,6 @@ const Login = () => {
 
   const navigate = useNavigate(); //https://reactrouter.com/docs/en/v6/hooks/use-navigate
 
-  const [login, { isLoading }] = useLoginMutation();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -33,9 +32,6 @@ const Login = () => {
   useEffect(() => {
     const validationResult = USERNAME_REGEX.test(user);
     setValidUsername(validationResult);
-    if (validUsername) {
-      setErrorMessage("Invalid login");
-    }
   }, [user]); // validate username every time it changes
 
   useEffect(() => {
@@ -46,8 +42,7 @@ const Login = () => {
     e.preventDefault(); // no form reloading on submit
     if (validUsername) {
       try {
-        const userData = await login({ user, password }).unwrap();
-        dispatch(setCredentials({ ...userData, user }));
+        dispatch(setCredentials({ user, password }));
         setUser("");
         setPassword("");
         // if login is successful
@@ -78,10 +73,13 @@ const Login = () => {
     setPassword(e?.target.value);
   };
 
-  return isLoading ? ( // comes from useLoginMutation
-    <h1>Loading...</h1>
-  ) : (
-    <section className="login">
+  //   return isLoading ? ( // comes from useLoginMutation
+  //     <h1>Loading...</h1>
+  //   ) : (
+  return (
+    <section className={styles.container}>
+      <h1>Sign up</h1>
+
       <p
         ref={errorRef}
         className={errorMessage ? "err-message" : "offscreen"}
@@ -90,36 +88,33 @@ const Login = () => {
         {errorMessage}
       </p>
 
-      <h1>User Login</h1>
-
-      <form onSubmit={handleSubmit}>
-        <div>
-          <FontAwesomeIcon icon={solid("user-secret")} />
-          <label htmlFor="username">Username:</label>
+      <form onSubmit={handleSubmit} className={styles.form}>
+        <div className={styles.field}>
           <input
             type="text"
-            id="username"
             ref={userRef}
             value={user}
             onChange={handleUserInput}
             autoComplete="off"
             required
+            placeholder="Username"
           />
         </div>
 
-        <div>
-          <label htmlFor="password">Password:</label>
+        <div className={styles.field}>
           <input
             type="password"
             id="password"
             onChange={handlePasswordInput}
             value={password}
             required
+            placeholder="Password"
           />
-          <button>Sign In</button>
+          <ShowIcon className={styles.showIcon} />
         </div>
+        <button className={styles.signUpBtn}>Sign Up</button>
       </form>
     </section>
   );
 };
-export default Login;
+export default Register;

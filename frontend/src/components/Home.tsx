@@ -6,6 +6,7 @@ const Home = () => {
     <div>
       <h1>Let's get started!</h1>
       <Link to="/login">Log in</Link>
+      <Link to="/register">Register</Link>
     </div>
   );
   return pageContent;

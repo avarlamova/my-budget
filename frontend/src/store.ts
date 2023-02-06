@@ -14,7 +14,7 @@ export const store = configureStore({
   },
   middleware: (getDefaultMiddleWare) =>
     getDefaultMiddleWare().concat(apiSlice.middleware),
-  devTools: true,
+  devTools: false,
 });
 
 export type RootState = ReturnType<typeof store.getState>;

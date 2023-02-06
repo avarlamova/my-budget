@@ -1,20 +1,18 @@
 //TODO add currency selection
-// TODO months filter
 import { createSlice } from "@reduxjs/toolkit";
 
-// interface AuthState {
-//   auth: {
-//     user: string | null;
-//     token: string | null;
-//   };
+// interface FiltersState {
+//  month: string,
+// year: string
 // }
 
 const filtersSlice = createSlice({
   name: "filters",
   initialState: {},
   reducers: {
-    setFilters: (state) => {
-      console.log(state);
+    setFilters: (state, action) => {
+      const { month, year } = action.payload;
+      return { month, year };
     },
   },
 });

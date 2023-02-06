@@ -4,8 +4,9 @@ import type { RootState } from "../store";
 import { setCredentials, logOut } from "../features/auth/authSlice";
 
 const baseQuery = fetchBaseQuery({
-  // baseUrl: "http://localhost:3001", //backend address
-  baseUrl: "https://brand-new-budget.onrender.com",
+  baseUrl: process.env.BASEURL,
+  //  "http://localhost:3001", //backend address
+  // baseUrl: "https://brand-new-budget.onrender.com",
   credentials: "include",
   prepareHeaders: (headers, { getState }) => {
     const token = (getState() as RootState).auth.token;

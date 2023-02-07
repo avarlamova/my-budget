@@ -2,9 +2,8 @@ const bcrypt = require("bcrypt");
 const User = require("../model/User");
 
 const handleNewUser = async (req, res) => {
-  const { user, pwd } = req.body;
-  console.log(req.body);
-  if (!user || !pwd)
+  const { user, password } = req.body;
+  if (!user || !password)
     return res
       .status(400)
       .json({ message: "Username and password are required" });
@@ -16,15 +15,13 @@ const handleNewUser = async (req, res) => {
 
   try {
     //encrypt the password
-    const hashedPwd = await bcrypt.hash(pwd, 10); // ten salt rounds;
+    const hashedPwd = await bcrypt.hash(password, 10); // ten salt rounds;
 
-    const result = await User.create({
-      // built-in mg function
+    await User.create({
+      // built-in mongoose function
       username: user,
       password: hashedPwd,
     });
-
-    console.log(result);
 
     res.status(201).json({ success: `New user ${user} created!` });
   } catch (err) {

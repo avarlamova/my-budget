@@ -18,6 +18,10 @@ h1 {
   margin: 0;
 }
 
+.errorMsg {
+  color: #fd3c4a;
+}
+
 .container {
   padding: 44px 16px;
 }
@@ -29,21 +33,32 @@ h1 {
 }
 
 .field {
-  padding: 8px 16px;
+  position: relative;
   background: #ffffff;
-  border: 1px solid #f1f1fa;
-  border-radius: 16px;
-  color: #91919f;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 18px;
+  border: none;
+
   & input {
     width: 303px;
     height: 56px;
-
+    border: 1px solid #f1f1fa;
+    border-radius: 16px;
+    padding: 13px;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 20px;
+    color: #91919f;
     &:focus {
       outline: none;
     }
+  }
+
+  & svg {
+    position: absolute;
+    top: 27px;
+    right: 16px;
+    cursor: pointer;
+
+    //TODO  make bold onhover
   }
 }
 
@@ -61,4 +76,10 @@ h1 {
   line-height: 22px;
   color: #ffffff;
   border: none;
+  cursor: pointer;
+
+  &:disabled {
+    cursor: default;
+    opacity: 0.3;
+  }
 }

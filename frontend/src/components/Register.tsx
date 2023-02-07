@@ -7,7 +7,11 @@ import { ReactComponent as ShowIcon } from "../assets/icons/show.svg";
 
 import styles from "./Register.module.scss";
 
-const USERNAME_REGEX = /^(?=.*[A-Za-z0-9]).{3,30}$/;
+const USERNAME_REGEX = /^[A-Za-z][A-Za-z0-9_]{3,29}$/;
+// A valid username should start with an alphabet so, [A-Za-z].
+// All other characters can be alphabets, numbers or an underscore so, [A-Za-z0-9_].
+// Since length constraint was given as 8-30 and we had already fixed the first character, so we give {7,29}.
+const PWD_REGEX = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
 
 const Register = () => {
   const userRef = useRef<HTMLInputElement>(null);
@@ -15,9 +19,18 @@ const Register = () => {
 
   const [user, setUser] = useState("");
   const [validUsername, setValidUsername] = useState(false);
-  // const isUsernameValid = useUsernameValidation(user)
+  const [validPassword, setValidPassword] = useState(false);
+
   const [password, setPassword] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
+  //toggle password visibility
+  const [passwordType, setPasswordType] = useState("password");
+  const [generalErrorMessage, setGeneralErrorMessage] = useState("");
+  const [loginErrorMessage, setLoginErrorMessage] = useState(
+    "Minimum 3 characters, starts with a letter, numbers and underscores are allowrd"
+  );
+  const [passwordErrorMessage, setPasswordErrorMessage] = useState(
+    "Minimum eight characters, at least one letter and one number"
+  );
 
   const navigate = useNavigate(); //https://reactrouter.com/docs/en/v6/hooks/use-navigate
 
@@ -35,8 +48,25 @@ const Register = () => {
   }, [user]); // validate username every time it changes
 
   useEffect(() => {
-    setErrorMessage("");
-  }, [user, password]);
+    const validationResult = PWD_REGEX.test(password);
+    setValidPassword(validationResult);
+  }, [password]); // validate password
+
+  useEffect(() => {
+    if (!validUsername) {
+      setLoginErrorMessage("Invalid login");
+    } else {
+      setLoginErrorMessage("");
+    }
+  }, [validUsername]);
+
+  useEffect(() => {
+    if (!validPassword) {
+      setPasswordErrorMessage("Invalid password");
+    } else {
+      setPasswordErrorMessage("");
+    }
+  }, [validPassword]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); // no form reloading on submit
@@ -50,13 +80,13 @@ const Register = () => {
       } catch (err: any) {
         console.log(err);
         if (!err?.originalStatus) {
-          setErrorMessage("No server response");
+          setGeneralErrorMessage("No server response");
         } else if (err.originalStatus === 400) {
-          setErrorMessage("Missing username or password");
+          setGeneralErrorMessage("Missing username or password");
         } else if (err.originalStatus === 401) {
-          setErrorMessage("Unauthorized");
+          setGeneralErrorMessage("Unauthorized");
         } else {
-          setErrorMessage("Login failed");
+          setGeneralErrorMessage("Login failed");
         }
         if (errorRef && errorRef.current) {
           //https://stackoverflow.com/questions/40349987/how-to-suppress-error-ts2533-object-is-possibly-null-or-undefined
@@ -73,6 +103,13 @@ const Register = () => {
     setPassword(e?.target.value);
   };
 
+  const togglePassword = () => {
+    if (passwordType === "password") {
+      setPasswordType("text");
+      return;
+    }
+    setPasswordType("password");
+  };
   //   return isLoading ? ( // comes from useLoginMutation
   //     <h1>Loading...</h1>
   //   ) : (
@@ -80,15 +117,7 @@ const Register = () => {
     <section className={styles.container}>
       <h1>Sign up</h1>
 
-      <p
-        ref={errorRef}
-        className={errorMessage ? "err-message" : "offscreen"}
-        aria-live="assertive"
-      >
-        {errorMessage}
-      </p>
-
-      <form onSubmit={handleSubmit} className={styles.form}>
+      <form onSubmit={handleSubmit} className={styles.form} autoComplete="off">
         <div className={styles.field}>
           <input
             type="text"
@@ -97,22 +126,53 @@ const Register = () => {
             onChange={handleUserInput}
             autoComplete="off"
             required
-            placeholder="Username"
+            placeholder="username"
           />
+
+          <p
+            // ref={loginErrorRef}
+            className={styles.errorMsg}
+            aria-live="assertive"
+          >
+            {loginErrorMessage}
+          </p>
         </div>
 
         <div className={styles.field}>
           <input
-            type="password"
-            id="password"
+            type={passwordType}
             onChange={handlePasswordInput}
             value={password}
             required
-            placeholder="Password"
+            placeholder="password"
           />
-          <ShowIcon className={styles.showIcon} />
+          <ShowIcon onClick={togglePassword} className={styles.showIcon} />
+          <p
+            // ref={passwordErrorRef}
+            className={styles.errorMsg}
+            aria-live="assertive"
+          >
+            {passwordErrorMessage}
+          </p>
         </div>
-        <button className={styles.signUpBtn}>Sign Up</button>
+        <div className={styles.field}>
+          <input
+            type={passwordType}
+            onChange={handlePasswordInput}
+            value={password}
+            required
+            placeholder="repeat password"
+          />
+        </div>
+        <p ref={errorRef} className={styles.errorMsg} aria-live="assertive">
+          {generalErrorMessage}
+        </p>
+        <button
+          className={styles.signUpBtn}
+          disabled={validUsername ? false : true}
+        >
+          Sign Up
+        </button>
       </form>
     </section>
   );

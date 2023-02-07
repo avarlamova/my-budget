@@ -33,7 +33,7 @@ const Login = () => {
   useEffect(() => {
     const validationResult = USERNAME_REGEX.test(user);
     setValidUsername(validationResult);
-    if (validUsername) {
+    if (!validUsername) {
       setErrorMessage("Invalid login");
     }
   }, [user]); // validate username every time it changes

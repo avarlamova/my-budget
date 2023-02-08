@@ -74,31 +74,28 @@ const Register = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); // no form reloading on submit
-    const registrationData = await newUser({ user, password }).unwrap();
-    // if (validUsername) {
-    //   try {
-    //     dispatch(setCredentials({ user, password }));
-    //     setUser("");
-    //     setPassword("");
-    //     // if login is successful
-    //     navigate("/welcome");
-    //   } catch (err: any) {
-    //     console.log(err);
-    //     if (!err?.originalStatus) {
-    //       setGeneralErrorMessage("No server response");
-    //     } else if (err.originalStatus === 400) {
-    //       setGeneralErrorMessage("Missing username or password");
-    //     } else if (err.originalStatus === 401) {
-    //       setGeneralErrorMessage("Unauthorized");
-    //     } else {
-    //       setGeneralErrorMessage("Login failed");
-    //     }
-    //     if (errorRef && errorRef.current) {
-    //       //https://stackoverflow.com/questions/40349987/how-to-suppress-error-ts2533-object-is-possibly-null-or-undefined
-    //       errorRef.current.focus();
-    //     }
-    //   }
-    // }
+    if (validUsername) {
+      try {
+        const registrationData = await newUser({ user, password }).unwrap();
+        dispatch(setCredentials({ user, password }));
+        navigate("/welcome");
+      } catch (err: any) {
+        console.log(err);
+        if (!err?.originalStatus) {
+          setGeneralErrorMessage("No server response");
+        } else if (err.originalStatus === 400) {
+          setGeneralErrorMessage("Missing username or password");
+        } else if (err.originalStatus === 401) {
+          setGeneralErrorMessage("Unauthorized");
+        } else {
+          setGeneralErrorMessage("Login failed");
+        }
+        if (errorRef && errorRef.current) {
+          //https://stackoverflow.com/questions/40349987/how-to-suppress-error-ts2533-object-is-possibly-null-or-undefined
+          errorRef.current.focus();
+        }
+      }
+    }
   };
 
   const handleUserInput = (e: { target: HTMLInputElement }) =>

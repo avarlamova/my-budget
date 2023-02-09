@@ -11,7 +11,6 @@ import { useRegisterMutation } from "../features/register/registerApiSlice";
 const USERNAME_REGEX = /^[A-Za-z][A-Za-z0-9_]{3,29}$/;
 // A valid username should start with an alphabet so, [A-Za-z].
 // All other characters can be alphabets, numbers or an underscore so, [A-Za-z0-9_].
-// Since length constraint was given as 8-30 and we had already fixed the first character, so we give {7,29}.
 const PWD_REGEX = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
 
 const Register = () => {
@@ -26,15 +25,13 @@ const Register = () => {
   //toggle password visibility
   const [passwordType, setPasswordType] = useState("password");
   const [repeatedPassword, setRepeatedPassword] = useState("");
-  const [generalErrorMessage, setGeneralErrorMessage] = useState("");
-  const [loginErrorMessage, setLoginErrorMessage] = useState(
-    "Minimum 3 characters, starts with a letter, numbers and underscores are allowed"
-  );
-  const [passwordErrorMessage, setPasswordErrorMessage] = useState(
-    "Minimum eight characters, at least one letter and one number"
-  );
 
-  const comparePasswords = repeatedPassword === password;
+  const [loginErrorMessage, setLoginErrorMessage] = useState("");
+  const [passwordErrorMessage, setPasswordErrorMessage] = useState("");
+  const [repeatedPasswordErrorMessage, setRepeatedPasswordErrorMessage] =
+    useState("");
+  const [serverErrorMessage, setServerErrorMessage] = useState("");
+
   const navigate = useNavigate(); //https://reactrouter.com/docs/en/v6/hooks/use-navigate
 
   const dispatch = useDispatch();
@@ -46,49 +43,67 @@ const Register = () => {
   }, []); // no dependencies => when component loads
 
   useEffect(() => {
-    const validationResult = USERNAME_REGEX.test(user);
-    setValidUsername(validationResult);
-  }, [user]); // validate username every time it changes
-
-  useEffect(() => {
-    const validationResult = PWD_REGEX.test(password);
-    setValidPassword(validationResult);
-  }, [password]); // validate password
-
-  useEffect(() => {
-    if (!validUsername) {
-      setLoginErrorMessage("Invalid login");
+    if (user.length > 0) {
+      const validationResult = USERNAME_REGEX.test(user);
+      setValidUsername(validationResult);
+      if (!validUsername && user.length > 0) {
+        setLoginErrorMessage("Invalid login");
+      }
+      // else {
+      //   setLoginErrorMessage("");
+      // }
     } else {
+      setValidUsername(true);
       setLoginErrorMessage("");
     }
-  }, [validUsername]);
+  }, [user, user.length]); // validate username every time it changes
 
   useEffect(() => {
-    if (!validPassword) {
-      setPasswordErrorMessage("Invalid password");
+    if (password.length > 0) {
+      const validationResult = PWD_REGEX.test(password);
+      setValidPassword(validationResult);
+
+      if (!validPassword) {
+        setPasswordErrorMessage("Invalid password");
+      }
+      // else {
+      //   setPasswordErrorMessage("");
+      // }
     } else {
+      setValidPassword(true);
       setPasswordErrorMessage("");
     }
-  }, [validPassword]);
+  }, [password, password.length]); // validate password
+
+  useEffect(() => {
+    if (repeatedPassword.length > 0 && password.length > 0) {
+      if (repeatedPassword !== password) {
+        setRepeatedPasswordErrorMessage("Passwords do not match!");
+      } else {
+        setRepeatedPasswordErrorMessage("");
+      }
+    }
+  }, [repeatedPassword, password]);
+  //compare password and repeated password
+
   const [newUser] = useRegisterMutation();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); // no form reloading on submit
     if (validUsername) {
       try {
-        const registrationData = await newUser({ user, password }).unwrap();
-        dispatch(setCredentials({ user, password }));
+        await newUser({ user, password }).unwrap();
         navigate("/welcome");
       } catch (err: any) {
         console.log(err);
         if (!err?.originalStatus) {
-          setGeneralErrorMessage("No server response");
+          setServerErrorMessage("No server response");
         } else if (err.originalStatus === 400) {
-          setGeneralErrorMessage("Missing username or password");
+          setServerErrorMessage("Missing username or password");
         } else if (err.originalStatus === 401) {
-          setGeneralErrorMessage("Unauthorized");
+          setServerErrorMessage("Unauthorized");
         } else {
-          setGeneralErrorMessage("Login failed");
+          setServerErrorMessage("Login failed");
         }
         if (errorRef && errorRef.current) {
           //https://stackoverflow.com/questions/40349987/how-to-suppress-error-ts2533-object-is-possibly-null-or-undefined
@@ -98,14 +113,16 @@ const Register = () => {
     }
   };
 
-  const handleUserInput = (e: { target: HTMLInputElement }) =>
+  const handleUserInput = (e: React.ChangeEvent<HTMLInputElement>) =>
     setUser(e?.target.value);
 
-  const handlePasswordInput = (e: { target: HTMLInputElement }) => {
+  const handlePasswordInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e?.target.value);
   };
 
-  const handleRepeatedPasswordInput = (e: { target: HTMLInputElement }) => {
+  const handleRepeatedPasswordInput = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setRepeatedPassword(e?.target.value);
   };
 
@@ -129,59 +146,81 @@ const Register = () => {
             type="text"
             ref={userRef}
             value={user}
-            onChange={handleUserInput}
+            onInput={handleUserInput}
             autoComplete="disabled"
             required
             placeholder="username"
           />
-
-          <p
-            // ref={loginErrorRef}
-            className={validUsername ? styles.rules : styles.errorMsg}
-            aria-live="assertive"
-          >
-            {loginErrorMessage}
+          {/* TODO validate in checklist manner */}
+          <p className={styles.rules}>
+            Minimum 3 characters, starts with a letter, numbers and underscores
+            are allowed
           </p>
+          {!validUsername && (
+            <p
+              // ref={loginErrorRef}
+              className={styles.errorMsg}
+              aria-live="assertive"
+            >
+              {loginErrorMessage}
+            </p>
+          )}
         </div>
 
         <div className={styles.field}>
           <input
             type={passwordType}
-            onChange={handlePasswordInput}
+            onInput={handlePasswordInput}
             value={password}
             autoComplete="disabled"
             required
             placeholder="password"
           />
           <ShowIcon onClick={togglePassword} className={styles.showIcon} />
-          <p
-            // ref={passwordErrorRef}
-            className={styles.errorMsg}
-            aria-live="assertive"
-          >
-            {passwordErrorMessage}
+          <p className={styles.rules}>
+            Minimum eight characters, at least one letter and one number
           </p>
+          {!validPassword && (
+            <p
+              // ref={passwordErrorRef}
+              className={styles.errorMsg}
+              aria-live="assertive"
+            >
+              {passwordErrorMessage}
+            </p>
+          )}
         </div>
         <div className={styles.field}>
           <input
             type={passwordType}
-            onChange={handleRepeatedPasswordInput}
+            onInput={handleRepeatedPasswordInput}
             required
             autoComplete="disabled"
             placeholder="repeat password"
           />
+          {repeatedPasswordErrorMessage && (
+            <p ref={errorRef} className={styles.errorMsg} aria-live="assertive">
+              {repeatedPasswordErrorMessage}
+            </p>
+          )}
         </div>
-        <p ref={errorRef} className={styles.errorMsg} aria-live="assertive">
-          {generalErrorMessage}
-        </p>
+
         <button
           className={styles.signUpBtn}
           disabled={
-            validUsername && validPassword && comparePasswords ? false : true
+            validUsername && validPassword && !serverErrorMessage
+              ? // && repeatedPasswordErrorMessage === ""
+                false
+              : true
           }
         >
           Sign Up
         </button>
+        {serverErrorMessage && (
+          <p className={styles.errorMsg} aria-live="assertive">
+            {serverErrorMessage}
+          </p>
+        )}
       </form>
     </section>
   );

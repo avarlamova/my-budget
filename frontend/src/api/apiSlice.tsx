@@ -2,11 +2,10 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import type { RootState } from "../store";
 
 import { setCredentials, logOut } from "../features/auth/authSlice";
-console.log(process.env.BASEURL);
+
 const baseQuery = fetchBaseQuery({
-  baseUrl: process.env.BASEURL,
-  //  "http://localhost:3001", //backend address
-  // baseUrl: "https://brand-new-budget.onrender.com",
+  //  "http://localhost:3001", //dev
+  baseUrl: "https://brand-new-budget-api.onrender.com",
   credentials: "include",
   prepareHeaders: (headers, { getState }) => {
     const token = (getState() as RootState).auth.token;

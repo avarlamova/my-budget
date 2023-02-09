@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import type { RootState } from "../store";
 
 import { setCredentials, logOut } from "../features/auth/authSlice";
-
+console.log(process.env.BASEURL);
 const baseQuery = fetchBaseQuery({
   baseUrl: process.env.BASEURL,
   //  "http://localhost:3001", //backend address

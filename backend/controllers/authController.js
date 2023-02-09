@@ -6,6 +6,7 @@ const handleLogin = async (req, res) => {
   const cookies = req.cookies;
   // TODO check multilogin on frontend
   const { user, password } = req.body;
+  console.log(user);
 
   if (!user || !password)
     return res
@@ -77,6 +78,7 @@ const handleLogin = async (req, res) => {
   } else {
     res.sendStatus(401);
   }
+  console.log("reached 91");
 };
 
 module.exports = { handleLogin };

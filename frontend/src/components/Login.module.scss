@@ -1,0 +1,70 @@
+.container {
+  padding: 44px 16px;
+}
+.errorMessage {
+  color: red;
+}
+.formWrapper {
+  & input {
+    width: 303px;
+    height: 56px;
+    border: 1px solid #f1f1fa;
+    border-radius: 16px;
+    padding: 13px;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 20px;
+    margin-bottom: 16px;
+    &:focus {
+      outline: none;
+    }
+  }
+  & svg {
+    position: absolute;
+    top: 27px;
+    right: 19px;
+    cursor: pointer;
+
+    & :hover path {
+      fill: black;
+    }
+  }
+}
+.button {
+  margin-top: 15px;
+  padding: 8px;
+  width: 343px;
+  height: 56px;
+  left: 16px;
+  background: #6347eb;
+  border-radius: 16px;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 22px;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+
+  &:disabled {
+    cursor: default;
+    opacity: 0.3;
+  }
+}
+
+.field {
+  position: relative;
+  border: none;
+}
+
+.link {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19px;
+  text-decoration-line: underline;
+  color: #7f3dff;
+}
+.signUpContainer {
+  margin-top: 38px;
+  text-align: center;
+  color: #91919f;
+}

@@ -4,6 +4,7 @@ import { apiSlice } from "./api/apiSlice";
 import authReducer from "./features/auth/authSlice";
 import expensesReducer from "./features/expenses/expensesSlice";
 import filtersReducer from "./features/filters/filtersSlice";
+import categoriesReducer from "./features/categories/categoriesSlice";
 
 export const store = configureStore({
   reducer: {
@@ -11,6 +12,7 @@ export const store = configureStore({
     auth: authReducer,
     expenses: expensesReducer,
     filters: filtersReducer,
+    categories: categoriesReducer,
   },
   middleware: (getDefaultMiddleWare) =>
     getDefaultMiddleWare().concat(apiSlice.middleware),

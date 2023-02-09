@@ -7,9 +7,11 @@ import { useExpensesMutation } from "../../features/expenses/expensesApiSlice";
 import {
   getMemoizedBudget,
   selectCategorizedExpenses,
+  selectExprensesRatio,
   selectMonthlyBudget,
   setExpenses,
 } from "../../features/expenses/expensesSlice";
+import { selectColors } from "../../features/categories/categoriesSlice";
 
 const Expenses = () => {
   const user = useSelector(selectCurrentUser);
@@ -17,11 +19,12 @@ const Expenses = () => {
   const budget = useSelector(getMemoizedBudget);
   const [expenses] = useExpensesMutation();
   const categorizedExpenses = useSelector(selectCategorizedExpenses);
+  const expensesRatio = useSelector(selectExprensesRatio);
+
   const dispatch = useDispatch();
   useEffect(() => {
     async function fetchData() {
       const expensesData = await expenses({ user }).unwrap();
-      console.log(expensesData);
       dispatch(setExpenses({ user: user, expenses: expensesData }));
     }
     fetchData();
@@ -40,7 +43,17 @@ const Expenses = () => {
             <span>${monthlyBudget}</span>
           </div>
         </div>
-        <div className={styles.diagram}></div>
+        <div className={styles.diagram}>
+          {expensesRatio &&
+            Object.keys(expensesRatio).map((key) => {
+              return (
+                <div
+                  style={{ width: `${expensesRatio[key]}%` }}
+                  className={styles[key]}
+                ></div>
+              );
+            })}
+        </div>
         {/* Add new expense <ModalWrapper children={<NewExpense />} /> */}
       </div>
       {categorizedExpenses &&

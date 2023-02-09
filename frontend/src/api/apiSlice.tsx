@@ -4,7 +4,7 @@ import type { RootState } from "../store";
 import { setCredentials, logOut } from "../features/auth/authSlice";
 
 const baseQuery = fetchBaseQuery({
-  //  "http://localhost:3001", //dev
+  // baseUrl: "http://localhost:3001", //dev
   baseUrl: "https://brand-new-budget-api.onrender.com",
   credentials: "include",
   prepareHeaders: (headers, { getState }) => {

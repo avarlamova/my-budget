@@ -16,7 +16,6 @@ connectDB();
 
 // BEFORE cors
 app.use(credentials);
-console.log(corsOptions);
 app.use(cors(corsOptions));
 app.use(cookieParser());
 

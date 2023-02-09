@@ -1,17 +1,19 @@
 import React from "react";
 import { useRef, useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setCredentials } from "../features/auth/authSlice";
 import { useLoginMutation } from "../features/auth/authApiSlice";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { solid } from "@fortawesome/fontawesome-svg-core/import.macro"; // <-- import styles to be used
+import { ReactComponent as ShowIcon } from "../assets/icons/show.svg";
+import styles from "./Login.module.scss";
 
-const USERNAME_REGEX = /^(?=.*[A-Za-z0-9]).{3,30}$/;
+const USERNAME_REGEX = /^[A-Za-z][A-Za-z0-9_]{3,29}$/;
 
 const Login = () => {
   const userRef = useRef<HTMLInputElement>(null);
   const errorRef = useRef<HTMLDivElement>(null);
+
+  const [passwordType, setPasswordType] = useState("password");
 
   const [user, setUser] = useState("");
   const [validUsername, setValidUsername] = useState(false);
@@ -41,6 +43,14 @@ const Login = () => {
   useEffect(() => {
     setErrorMessage("");
   }, [user, password]);
+
+  const togglePassword = () => {
+    if (passwordType === "password") {
+      setPasswordType("text");
+      return;
+    }
+    setPasswordType("password");
+  };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); // no form reloading on submit
@@ -79,46 +89,53 @@ const Login = () => {
   };
 
   return isLoading ? ( // comes from useLoginMutation
-    <h1>Loading...</h1>
+    <section className={styles.container}>
+      <h1>Loading...</h1>
+    </section>
   ) : (
-    <section className="login">
-      <p
-        ref={errorRef}
-        className={errorMessage ? "err-message" : "offscreen"}
-        aria-live="assertive"
-      >
+    <section className={styles.container}>
+      <p ref={errorRef} className={styles.errorMessage} aria-live="assertive">
         {errorMessage}
       </p>
 
       <h1>User Login</h1>
 
-      <form onSubmit={handleSubmit}>
-        <div>
-          <FontAwesomeIcon icon={solid("user-secret")} />
-          <label htmlFor="username">Username:</label>
+      <form onSubmit={handleSubmit} className={styles.formWrapper}>
+        <div className={styles.field}>
           <input
             type="text"
-            id="username"
             ref={userRef}
             value={user}
             onChange={handleUserInput}
-            autoComplete="off"
             required
+            placeholder="Username"
           />
         </div>
 
-        <div>
-          <label htmlFor="password">Password:</label>
+        <div className={styles.field}>
           <input
-            type="password"
+            type={passwordType}
             id="password"
             onChange={handlePasswordInput}
             value={password}
             required
+            placeholder="Password"
           />
-          <button>Sign In</button>
+          <ShowIcon onClick={togglePassword} className={styles.showIcon} />
         </div>
+        <button
+          className={styles.button}
+          disabled={validUsername && password.length > 0 ? false : true}
+        >
+          Sign In
+        </button>
       </form>
+      <div className={styles.signUpContainer}>
+        Don't have an account yet?{" "}
+        <Link className={styles.link} to="/register">
+          Sign up
+        </Link>
+      </div>
     </section>
   );
 };

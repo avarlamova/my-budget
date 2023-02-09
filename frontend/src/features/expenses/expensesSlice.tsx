@@ -9,6 +9,10 @@ interface ExpensesState {
   monthlyBudget: number;
 }
 
+interface RatioObject {
+  [key: string]: string;
+}
+
 const initialState: ExpensesState = {
   userLogin: "",
   expenses: [],
@@ -67,4 +71,16 @@ export const getMemoizedBudget = createSelector(
 export const selectCategorizedExpenses = (state: RootState) =>
   state.expenses.expensesByCategory;
 
+export const selectExprensesRatio = createSelector(
+  selectExpensesSum,
+  selectCategorizedExpenses,
+  (sum, expenses) => {
+    let ratioObj = {} as RatioObject;
+    for (const key in expenses) {
+      const ratio = ((expenses[key] / sum) * 100).toFixed(2);
+      ratioObj[key] = ratio;
+    }
+    return ratioObj;
+  }
+);
 export default expensesSlice.reducer;

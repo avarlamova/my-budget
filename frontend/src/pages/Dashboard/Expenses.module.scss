@@ -24,7 +24,19 @@
 
 .diagram {
   margin-top: 15px;
-  background-color: red;
   width: 286px;
   height: 8px;
+  display: flex;
+}
+
+// categories colours
+
+.transport {
+  height: 8px;
+  background-color: red;
+}
+
+.auto {
+  height: 8px;
+  background-color: green;
 }

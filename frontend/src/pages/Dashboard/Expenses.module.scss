@@ -29,6 +29,10 @@
   display: flex;
 }
 
+.expensesContainer {
+  max-height: 300px;
+  overflow-y: scroll;
+}
 // categories colours
 
 .transport {

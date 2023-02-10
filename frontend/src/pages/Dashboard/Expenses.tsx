@@ -17,7 +17,7 @@ const Expenses = () => {
   const user = useSelector(selectCurrentUser);
   const monthlyBudget = useSelector(selectMonthlyBudget);
   const budget = useSelector(getMemoizedBudget);
-  const [expenses] = useExpensesMutation();
+  const [expenses, { isLoading }] = useExpensesMutation();
   const categorizedExpenses = useSelector(selectCategorizedExpenses);
   const expensesRatio = useSelector(selectExprensesRatio);
 
@@ -30,7 +30,11 @@ const Expenses = () => {
     fetchData();
   }, []); // no dependencies => when component loads
 
-  return (
+  return isLoading ? ( // comes from useLoginMutation
+    <section className={styles.container}>
+      <h1>...</h1>
+    </section>
+  ) : (
     <>
       <div className={styles.wrapper}>
         <div className={styles.sumsWrapper}>
@@ -56,12 +60,18 @@ const Expenses = () => {
         </div>
         {/* Add new expense <ModalWrapper children={<NewExpense />} /> */}
       </div>
-      {categorizedExpenses &&
-        Object.keys(categorizedExpenses).map((key) => {
-          return (
-            <ExpenseCategory category={key} value={categorizedExpenses[key]} />
-          );
-        })}
+      {categorizedExpenses && (
+        <div className={styles.expensesContainer}>
+          {Object.keys(categorizedExpenses).map((key) => {
+            return (
+              <ExpenseCategory
+                category={key}
+                value={categorizedExpenses[key]}
+              />
+            );
+          })}
+        </div>
+      )}
     </>
   );
 };

@@ -6,6 +6,7 @@ import { ReactComponent as CategoryIcon } from "../../assets/icons/auto.svg";
 // TODO add icon
 const ExpenseCategory = (category: { category: string; value: number }) => {
   return (
+    //TODO уменьшить высоту категорий
     <div className={styles.wrapper}>
       <div className={styles.title}>
         <CategoryIcon className={styles.icon} />

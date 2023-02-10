@@ -4,21 +4,23 @@ interface CategoryState {
   [key: string]: string;
 }
 
-const categoriesColours = {
+const defaultCategories: CategoryState = {
   auto: "red",
   transport: "green",
 };
 const categoriesSlice = createSlice({
   name: "categories",
-  initialState: categoriesColours,
+  initialState: defaultCategories,
   reducers: {
-    setFilters: (state, action) => {
-      return action.payload;
+    addCategory: (state, action) => {
+      const { key, color } = action.payload;
+      console.log(state.defaultCategories);
+      //   state.defaultCategories = color;
     },
   },
 });
 
-export const { setFilters } = categoriesSlice.actions;
+export const { addCategory } = categoriesSlice.actions;
 
 export default categoriesSlice.reducer;
 export const selectColors = (state: CategoryState, key: string) => {

@@ -6,8 +6,12 @@ const Home = () => {
   const pageContent = (
     <div className={styles.container}>
       <h1>Let's get started!</h1>
-      <Link to="/login">Log in</Link>
-      <Link to="/register">Register</Link>
+      <Link to="/login">
+        <button className={styles.button}>Log in </button>
+      </Link>
+      <Link to="/register">
+        <button className={styles.button}>Register </button>
+      </Link>
     </div>
   );
   return pageContent;

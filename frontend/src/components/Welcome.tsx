@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import { selectCurrentUser } from "../features/auth/authSlice";
 import { Link } from "react-router-dom";
-
+import styles from "./Welcome.module.scss";
 import React from "react";
 
 const Welcome = () => {
@@ -10,11 +10,11 @@ const Welcome = () => {
   const welcomeMessage = user ? `Welcome, ${user}!` : "Welcome";
 
   const content = (
-    <section className="welcome">
+    <section className={styles.container}>
       <h1>{welcomeMessage}</h1>
-      <p>
-        <Link to="/dashboard">Go to dashboard</Link>
-      </p>
+      <Link to="/dashboard" className={styles.link}>
+        Go to dashboard
+      </Link>
     </section>
   );
   return content;

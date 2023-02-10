@@ -1,4 +1,26 @@
 .container {
   display: flex;
   flex-direction: column;
+  padding: 5rem 16px;
+}
+
+.button {
+  margin-top: 15px;
+  padding: 8px;
+  width: 343px;
+  height: 56px;
+  text-align: center;
+  background: #6347eb;
+  border-radius: 16px;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 22px;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+
+  & a {
+    color: white;
+    text-decoration: none;
+  }
 }

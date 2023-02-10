@@ -1,9 +1,12 @@
 .wrapper {
   display: flex;
   justify-content: center;
+  align-items: baseline;
   margin-bottom: 1rem;
+  gap: 15px;
 }
 .dateContainer {
+  display: flex;
 }
 
 .icon {
@@ -12,16 +15,16 @@
 .customSelect {
   display: flex;
   position: relative;
+}
 
-  //   flex-direction: row;
-  //   align-items: flex-start;
-  //   padding: 12px;
-  //   gap: 46px;
-
-  //   max-height: 248px;
-  //   background: #ffffff;
-  //   border-radius: 6px;
-  //   & select {
-  //     display: none;
-  //   }
+.filtersBtn {
+  height: 32px;
+  background: #eee5ff;
+  border-radius: 40px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 18px;
+  color: #7f3dff;
+  border: none;
+  cursor: pointer;
 }

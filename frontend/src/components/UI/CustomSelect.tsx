@@ -15,8 +15,8 @@ const CustomSelect = ({ selectText, options, handleChange }: any) => {
   };
 
   return (
-    <>
-      <div className={styles.container} onClick={openFilters}>
+    <div className={styles.container}>
+      <div className={styles.innerContainer} onClick={openFilters}>
         <button className={styles.button}>{selectText}</button>
         <FilterIcon className={styles.icon} />
       </div>
@@ -34,7 +34,7 @@ const CustomSelect = ({ selectText, options, handleChange }: any) => {
           ))}
         </ul>
       )}
-    </>
+    </div>
   );
 };
 

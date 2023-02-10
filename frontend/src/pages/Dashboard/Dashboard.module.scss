@@ -1,6 +1,8 @@
 .addIcon {
-  margin-top: 20px;
   cursor: pointer;
+  position: absolute;
+  bottom: 30px;
+  width: 375px;
 }
 .iconContainer {
   display: flex;
@@ -11,7 +13,7 @@
   display: flex;
   gap: 35px;
   align-items: center;
-  margin-bottom: 30px;
+  margin-top: 20px;
 
   & svg {
     cursor: pointer;

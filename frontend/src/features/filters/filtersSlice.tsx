@@ -1,18 +1,22 @@
 //TODO add currency selection
 import { createSlice } from "@reduxjs/toolkit";
 
-// interface FiltersState {
-//  month: string,
-// year: string
-// }
+interface FiltersState {
+  month: string;
+  year: string;
+}
 
 const filtersSlice = createSlice({
   name: "filters",
-  initialState: {},
+  initialState: {
+    month: "",
+    year: "",
+  },
   reducers: {
     setFilters: (state, action) => {
       const { month, year } = action.payload;
-      return { month, year };
+      state.month = month;
+      state.year = year;
     },
   },
 });

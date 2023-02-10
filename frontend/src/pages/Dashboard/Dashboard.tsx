@@ -10,30 +10,32 @@ import { ReactComponent as NewCategoryIcon } from "../../assets/icons/Category.s
 import { ReactComponent as NewIncomeIcon } from "../../assets/icons/Income.svg";
 
 import styles from "./Dashboard.module.scss";
-import { useFiltersMutation } from "../../features/filters/filtersApiSlice";
-import ModalWrapper from "./ModalWrapper";
+import ModalWrapper from "../../components/UI/ModalWrapper";
+import NewExpense from "./NewExpense";
 
 // toggle: see transactions/see categories
 // есть historic data + filters
 // есть несколько категорий
 const Dashboard = () => {
   const [isNewBlockVisible, setNewBlockVisible] = useState(false);
-  const [filters, { isLoading }] = useFiltersMutation();
+  const [newBlock, setNewBlock] = useState(<></>);
+  const [isModalVisible, setModalVisible] = useState(false);
   // const expensesData = await expenses({ user }).unwrap();
-  useEffect(() => {
-    async function fetchData() {
-      const filtersData = await filters({}).unwrap();
-      console.log(filtersData);
-    }
-    fetchData();
-  }, []); // no dependencies => when component loads
 
-  return isLoading ? ( // comes from useLoginMutation
-    <section className={styles.container}>
-      <h1>Loading...</h1>
-    </section>
-  ) : (
+  const addNew = (param: string) => {
+    setModalVisible(true);
+    switch (param) {
+      case "income":
+        setNewBlock(<NewExpense />);
+        break;
+      default:
+        break;
+    }
+  };
+
+  return (
     <>
+      {isModalVisible && <ModalWrapper children={newBlock} />}
       <MonthFilter />
       <Income />
       <Expenses />
@@ -41,7 +43,7 @@ const Dashboard = () => {
       <div className={styles.iconContainer}>
         {isNewBlockVisible && (
           <div className={styles.newIcons}>
-            <NewIncomeIcon />
+            <NewIncomeIcon onClick={() => addNew("income")} />
             <NewCategoryIcon />
             <NewExpenseIcon />
           </div>

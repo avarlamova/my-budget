@@ -1,6 +1,7 @@
 import React from "react";
 import { FC, ReactElement, useEffect, useMemo } from "react";
 import ReactDOM from "react-dom";
+import styles from "./ModalWrapper.module.scss";
 
 interface ModalWrapperProps {
   children: ReactElement;
@@ -24,8 +25,10 @@ const ModalWrapper: FC<ModalWrapperProps> = ({ children, toggleModal }) => {
     return null;
   }
   return ReactDOM.createPortal(
-    <div onClick={toggleModal} className="modal">
-      <div onClick={(e) => e.stopPropagation()}>{children}</div>
+    <div onClick={toggleModal} className={styles.modal}>
+      <div onClick={(e) => e.stopPropagation()} className={styles.content}>
+        {children}
+      </div>
     </div>,
     containerElement
   );

@@ -10,12 +10,15 @@
   z-index: 1000;
 }
 .content {
-  padding: 64px 84px 64px 84px;
-  width: 340px;
-  min-height: 367px;
   background: #f5f5f5;
   border-radius: 11px;
-  margin-top: 124px;
-  margin-left: 432px;
+  margin: 0 auto;
+  width: 375px;
   opacity: 1;
+  padding: 14px 20px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: max-content;
 }

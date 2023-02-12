@@ -23,6 +23,11 @@ const categoriesSlice = createSlice({
 export const { addCategory } = categoriesSlice.actions;
 
 export default categoriesSlice.reducer;
+
+export const selectCategories = (state: CategoryState) => {
+  return Object.keys(state.categories);
+};
+
 export const selectColors = (state: CategoryState, key: string) => {
   return state.categories[key];
 };

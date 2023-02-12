@@ -8,10 +8,12 @@ import { ReactComponent as AddIcon } from "../../assets/icons/Add.svg";
 import { ReactComponent as NewExpenseIcon } from "../../assets/icons/Expense.svg";
 import { ReactComponent as NewCategoryIcon } from "../../assets/icons/Category.svg";
 import { ReactComponent as NewIncomeIcon } from "../../assets/icons/Income.svg";
+import { CSSTransition } from "react-transition-group";
 
 import styles from "./Dashboard.module.scss";
 import ModalWrapper from "../../components/UI/ModalWrapper";
 import NewExpense from "./NewExpense";
+import NewIncome from "./NewIncome";
 
 // toggle: see transactions/see categories
 // есть historic data + filters
@@ -26,6 +28,9 @@ const Dashboard = () => {
     setModalVisible(true);
     switch (param) {
       case "income":
+        setNewBlock(<NewIncome />);
+        break;
+      case "expense":
         setNewBlock(<NewExpense />);
         break;
       default:
@@ -39,7 +44,13 @@ const Dashboard = () => {
       <MonthFilter />
       <Income />
       <Expenses />
-
+      {/* <CSSTransition
+        in={isNewBlockVisible}
+        timeout={300}
+        unmountOnExit
+        // onEnter={() => setShowButton(false)}
+        // onExited={() => setShowButton(true)}
+      > */}
       <div className={styles.iconContainer}>
         {isNewBlockVisible && (
           <div className={styles.newIcons}>
@@ -53,6 +64,7 @@ const Dashboard = () => {
           className={styles.addIcon}
         />
       </div>
+      {/* </CSSTransition> */}
     </>
   );
 };

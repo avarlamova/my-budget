@@ -16,8 +16,8 @@ const NewExpense = () => {
   return (
     <div>
       <form onSubmit={handleSubmit} className={styles.formWrapper}>
-        <div className={styles.field}>
-          <div>
+        <div>
+          <div className={styles.field}>
             <option>Category</option>
             {categories.map((category) => {
               return <option>{category}</option>;

@@ -1,35 +1,83 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { selectCategories } from "../../features/categories/categoriesSlice";
 import styles from "./NewExpense.module.scss";
 import { ReactComponent as ArrowDown } from "../../assets/icons/selectArrow.svg";
+
 const NewExpense = () => {
-  const handleSubmit = () => {
-    console.log("New Expense");
-  };
-
-  const handleDescriptionChange = () => {
-    console.log("Description");
-  };
-
+  const [selectedCategory, setSelectedCategory] = useState("Category");
+  const [isDropdownShown, setDropdownShown] = useState(false);
+  // use currency
+  const [sum, setSum] = useState(0);
+  const [description, setDescription] = useState("");
   const categories = useSelector(selectCategories);
+
+  const handleSubmit = (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+    console.log(sum, description, selectedCategory);
+  };
+
+  const handleSumChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (+e.target.value) {
+      setSum(Number(e.target.value));
+    }
+  };
+
+  const handleCategoryChange = (e: React.MouseEvent<HTMLDivElement>) => {
+    const target = e.target as HTMLDivElement;
+    setSelectedCategory(target.innerHTML);
+    setDropdownShown(false);
+  };
+
+  const handleDescriptionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setDescription(e.target.value);
+  };
   return (
     <div>
+      <h1>Add new income</h1>
       <form onSubmit={handleSubmit} className={styles.formWrapper}>
-        <div>
-          <div className={styles.field}>
-            <option>Category</option>
-            {categories.map((category) => {
-              return <option>{category}</option>;
-            })}
+        <div className={styles.field}>
+          {/* TODO add currency symbol */}
+          <input
+            type="text"
+            placeholder="Enter sum"
+            onChange={handleSumChange}
+            value={sum}
+          />
+        </div>
+
+        <div className={styles.fieldWrapper}>
+          <div
+            className={styles.dropDown}
+            onClick={() => setDropdownShown(!isDropdownShown)}
+          >
+            <div className={styles.selectedCategory}>{selectedCategory}</div>
+            <ArrowDown className={styles.selectIcon} />
           </div>
+          {isDropdownShown && (
+            <div className={styles.categories}>
+              {categories.map((category) => {
+                return (
+                  <div className={styles.option} onClick={handleCategoryChange}>
+                    {category}
+                  </div>
+                );
+              })}
+            </div>
+          )}
         </div>
 
         <div className={styles.field}>
-          <input type="button" onChange={handleDescriptionChange} />
-          <ArrowDown className={styles.showIcon} />
+          <input
+            type="text"
+            onChange={handleDescriptionChange}
+            placeholder="Enter description"
+            value={description}
+          />
         </div>
-        <button className={styles.button}>Continue</button>
+        <button type="submit" className={styles.button}>
+          Add expense
+        </button>
       </form>
     </div>
   );

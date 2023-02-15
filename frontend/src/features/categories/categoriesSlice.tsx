@@ -14,7 +14,7 @@ const categoriesSlice = createSlice({
   reducers: {
     addCategory: (state, action) => {
       const { key, color } = action.payload;
-      console.log(state.defaultCategories);
+      // console.log(state.defaultCategories);
       //   state.defaultCategories = color;
     },
   },

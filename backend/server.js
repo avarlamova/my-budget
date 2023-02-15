@@ -38,3 +38,4 @@ app.use("/logout", require("./routes/logout"));
 app.use("/dashboard", require("./routes/dashboard"));
 
 app.use(errorHandler);
+app.use(verifyJWT);

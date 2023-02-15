@@ -9,63 +9,48 @@ const NewIncome = () => {
   const [isDropdownShown, setDropdownShown] = useState(false);
   // use currency
   const [sum, setSum] = useState(0);
+  const [description, setDescription] = useState("");
 
   const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    console.log("New Expense");
-  };
-
-  const handleDescriptionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log("Description");
+    console.log(sum, description, selectedCategory);
   };
 
   const handleSumChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (typeof e.target.value === "number") {
-      setSum(e.target.value);
+    if (+e.target.value) {
+      setSum(Number(e.target.value));
     }
   };
 
-  const categories = useSelector(selectCategories);
+  const handleDescriptionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setDescription(e.target.value);
+  };
+
   return (
     <div>
+      <h1>Add new income</h1>
       <form onSubmit={handleSubmit} className={styles.formWrapper}>
         <div className={styles.field}>
+          {/* TODO add currency symbol */}
           <input
             type="text"
             placeholder="Enter sum"
             onChange={handleSumChange}
-            value={"$" + sum}
+            value={sum}
           />
         </div>
 
-        <div className={styles.fieldWrapper}>
-          <div
-            className={styles.dropDown}
-            onClick={() => setDropdownShown(!isDropdownShown)}
-          >
-            <div className={styles.selectedCategory}>{selectedCategory}</div>
-            <ArrowDown className={styles.selectIcon} />
-          </div>
-          {isDropdownShown && (
-            <div className={styles.categories}>
-              {categories.map((category) => {
-                return (
-                  <div
-                    className={styles.option}
-                    onClick={() => setSelectedCategory(category)}
-                  >
-                    {category}
-                  </div>
-                );
-              })}
-            </div>
-          )}
-        </div>
-
         <div className={styles.field}>
-          <input type="text" onChange={handleDescriptionChange} />
+          <input
+            type="text"
+            onChange={handleDescriptionChange}
+            placeholder="Enter description"
+            value={description}
+          />
         </div>
-        <button className={styles.button}>Add income</button>
+        <button type="submit" className={styles.button}>
+          Add income
+        </button>
       </form>
     </div>
   );

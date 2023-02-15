@@ -3,7 +3,7 @@ const User = require("../model/User");
 
 const handleRefreshToken = async (req, res) => {
   const cookies = req.cookies;
-  console.log(cookies);
+  console.log("cookies", cookies);
   if (!cookies?.jwt) return res.sendStatus(401);
 
   const refreshToken = cookies.jwt;
@@ -24,7 +24,7 @@ const handleRefreshToken = async (req, res) => {
         }).exec();
         hackedUser.refreshToken = [];
         const result = await hackedUser.save();
-        console.log(result);
+        console.log("hacked result", result);
       }
     );
     return res.sendStatus(403); //Forbidden

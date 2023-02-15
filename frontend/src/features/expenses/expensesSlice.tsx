@@ -40,6 +40,7 @@ const expensesSlice = createSlice({
         expensesByCategory: expensesByCategory,
       };
     },
+    addNewExpense: (state, action) => {},
   },
 });
 

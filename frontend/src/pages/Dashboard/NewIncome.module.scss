@@ -1,6 +1,7 @@
 .formWrapper {
   display: flex;
-  gap: 30px;
+  flex-direction: column;
+  gap: 20px;
   & input {
     width: 303px;
     border: 1px solid #f1f1fa;
@@ -9,7 +10,6 @@
     font-weight: 400;
     font-size: 18px;
     line-height: 20px;
-    margin-bottom: 16px;
     &:focus {
       outline: none;
     }
@@ -66,12 +66,19 @@
   cursor: pointer;
 }
 .option {
-  & :hover {
+  &:hover {
     color: #5233ff;
     font-weight: bold;
   }
 }
 
 .button {
+  font-family: inherit;
+  cursor: pointer;
   background-color: #00a86b;
+  border-radius: 16px;
+  color: white;
+  font-size: 18px;
+  border: none;
+  padding: 8px;
 }

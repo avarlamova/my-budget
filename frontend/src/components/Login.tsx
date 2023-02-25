@@ -1,6 +1,9 @@
 import React from "react";
 import { useRef, useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import Link from "next/link";
+import { useRouter } from "next/router";
+
+// import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setCredentials } from "../features/auth/authSlice";
 import { useLoginMutation } from "../features/auth/authApiSlice";
@@ -10,6 +13,8 @@ import styles from "./Login.module.scss";
 const USERNAME_REGEX = /^[A-Za-z][A-Za-z0-9_]{3,29}$/;
 
 const Login = () => {
+  const navigate = useRouter();
+
   const userRef = useRef<HTMLInputElement>(null);
   const errorRef = useRef<HTMLDivElement>(null);
 
@@ -21,7 +26,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
-  const navigate = useNavigate(); //https://reactrouter.com/docs/en/v6/hooks/use-navigate
+  // const navigate = useNavigate(); //https://reactrouter.com/docs/en/v6/hooks/use-navigate
 
   const [login, { isLoading }] = useLoginMutation();
   const dispatch = useDispatch();
@@ -61,7 +66,8 @@ const Login = () => {
         setUser("");
         setPassword("");
         // if login is successful
-        navigate("/welcome");
+        // router.push("/welcome");
+        navigate.replace("/welcome");
       } catch (err: any) {
         console.log(err);
         if (!err?.originalStatus) {
@@ -132,7 +138,7 @@ const Login = () => {
       </form>
       <div className={styles.signUpContainer}>
         Don't have an account yet?{" "}
-        <Link className={styles.link} to="/register">
+        <Link className={styles.link} href="/register">
           Sign up
         </Link>
       </div>

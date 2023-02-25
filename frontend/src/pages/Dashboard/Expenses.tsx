@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import ExpenseCategory from "./ExpenseCategory";
-import styles from "./Expenses.module.scss";
+import styles from "../../styles/Expenses.module.scss";
 import { selectCurrentUser } from "../../features/auth/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useExpensesMutation } from "../../features/expenses/expensesApiSlice";

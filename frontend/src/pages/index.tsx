@@ -2,7 +2,7 @@
 import Link from "next/link";
 
 import * as React from "react"; //https://github.com/microsoft/TypeScript/issues/14118
-import styles from "./Home.module.scss";
+import styles from "../styles/Home.module.scss";
 
 const Home = () => {
   const pageContent = (

@@ -1,0 +1,14 @@
+body {
+  font-family: "DM Sans", sans-serif;
+  max-width: 500px;
+  margin: 0 auto;
+  background-color: #eaeaea;
+}
+#root {
+  width: 375px;
+  height: 100vh;
+  margin: 0 auto;
+  background: #fcfcfd;
+  border-radius: 12px;
+  padding: 14px 20px;
+}

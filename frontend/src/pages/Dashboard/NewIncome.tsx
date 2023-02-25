@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styles from "./NewIncome.module.scss";
+import styles from "../../styles/NewIncome.module.scss";
 import { ReactComponent as ArrowDown } from "../../assets/icons/selectArrow.svg";
 import { selectCategories } from "../../features/categories/categoriesSlice";
 import { useSelector } from "react-redux";

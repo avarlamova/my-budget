@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import styles from "./CustomSelect.module.scss";
-import { ReactComponent as FilterIcon } from "../../assets/icons/arrowDown.svg";
+import styles from "../../styles/CustomSelect.module.scss";
+import { ReactComponent as FilterIcon } from "../../../public/assets/icons/arrowDown.svg";
 
 const CustomSelect = ({ selectText, options, handleChange }: any) => {
   const [isOpen, setIsOpen] = useState(false);

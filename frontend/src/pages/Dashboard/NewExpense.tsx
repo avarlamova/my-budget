@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { selectCategories } from "../../features/categories/categoriesSlice";
-import styles from "./NewExpense.module.scss";
-import { ReactComponent as ArrowDown } from "../../assets/icons/selectArrow.svg";
+import styles from "../../styles/NewExpense.module.scss";
+import { ReactComponent as ArrowDown } from "../../../public/assets/icons/selectArrow.svg";
 
 const NewExpense = () => {
   const [selectedCategory, setSelectedCategory] = useState("Category");

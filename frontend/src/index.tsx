@@ -5,7 +5,7 @@ import App from "./App";
 
 import { store } from "./store";
 import { Provider } from "react-redux";
-// import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { disableReactDevTools } from "@fvilers/disable-react-devtools";
 
 if (process.env.NODE_ENV === "production") {
@@ -18,12 +18,11 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      {/* <BrowserRouter>
+      <BrowserRouter>
         <Routes>
           <Route path="/*" element={<App />} />
         </Routes>
-      </BrowserRouter> */}
-      <App />
+      </BrowserRouter>
     </Provider>
   </React.StrictMode>
 );

@@ -1,6 +1,6 @@
 import React from "react";
-import styles from "../../styles/ExpenseCategory.module.scss";
-import { ReactComponent as CategoryIcon } from "../../../public/assets/icons/auto.svg";
+import styles from "./ExpenseCategory.module.scss";
+import { ReactComponent as CategoryIcon } from "../../assets/icons/auto.svg";
 
 // TODO open transactions in modal on click
 // TODO add icon

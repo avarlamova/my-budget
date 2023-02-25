@@ -6,7 +6,7 @@ import {
   useMemoryMutation,
 } from "../../features/filters/filtersApiSlice";
 import { setFilters } from "../../features/filters/filtersSlice";
-import styles from "../../styles/MonthFilter.module.scss";
+import styles from "./MonthFilter.module.scss";
 const MonthFilter = () => {
   let currentMonth = new Date().toLocaleString("en-US", { month: "long" });
   const months = ["September", "October", "November", "December", currentMonth];

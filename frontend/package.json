@@ -22,17 +22,15 @@
     "react-dom": "^18.1.0",
     "react-redux": "^8.0.2",
     "react-router-dom": "^6.3.0",
-    "react-scripts": "5.0.1",
     "react-transition-group": "^4.4.5",
     "typescript": "^4.7.3",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "full": "react-scripts build && nodemon ../backend/server.js",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "full": "next build && nodemon ../backend/server.js"
   },
   "eslintConfig": {
     "extends": [
@@ -53,12 +51,8 @@
     ]
   },
   "devDependencies": {
-    "@babel/plugin-syntax-jsx": "^7.18.6",
-    "@babel/preset-env": "^7.20.2",
-    "@babel/preset-react": "^7.18.6",
-    "@babel/preset-typescript": "^7.21.0",
     "@types/react-transition-group": "^4.4.5",
-    "sass": "^1.58.3",
+    "sass": "^1.57.1",
     "typescript-plugin-css-modules": "^4.1.1"
   }
 }

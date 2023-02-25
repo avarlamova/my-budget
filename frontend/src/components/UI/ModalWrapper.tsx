@@ -1,7 +1,7 @@
 import React from "react";
 import { FC, ReactElement, useEffect, useMemo } from "react";
 import ReactDOM from "react-dom";
-import styles from "../../styles/ModalWrapper.module.scss";
+import styles from "./ModalWrapper.module.scss";
 
 interface ModalWrapperProps {
   children: ReactElement;

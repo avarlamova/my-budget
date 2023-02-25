@@ -4,13 +4,13 @@ import Expenses from "./Expenses";
 import Income from "./Income";
 // import ModalWrapper from "./ModalWrapper";
 // import NewExpense from "./NewExpense";
-import { ReactComponent as AddIcon } from "../../../public/assets/icons/Add.svg";
-import { ReactComponent as NewExpenseIcon } from "../../../public/assets/icons/Expense.svg";
-import { ReactComponent as NewCategoryIcon } from "../../../public/assets/icons/Category.svg";
-import { ReactComponent as NewIncomeIcon } from "../../../public/assets/icons/Income.svg";
+import { ReactComponent as AddIcon } from "../../assets/icons/Add.svg";
+import { ReactComponent as NewExpenseIcon } from "../../assets/icons/Expense.svg";
+import { ReactComponent as NewCategoryIcon } from "../../assets/icons/Category.svg";
+import { ReactComponent as NewIncomeIcon } from "../../assets/icons/Income.svg";
 import { CSSTransition } from "react-transition-group";
 
-import styles from "../../styles/Dashboard.module.scss";
+import styles from "./Dashboard.module.scss";
 import ModalWrapper from "../../components/UI/ModalWrapper";
 import NewExpense from "./NewExpense";
 import NewIncome from "./NewIncome";

@@ -71,7 +71,6 @@ const handleLogin = async (req, res) => {
       sameSite: "None",
       maxAge: 24 * 60 * 60 * 1000, // 1 day
     });
-
     // Send authorization roles and access token to user
     res.json({ accessToken });
   } else {

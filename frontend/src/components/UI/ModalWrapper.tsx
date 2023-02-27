@@ -2,6 +2,7 @@ import React from "react";
 import { FC, ReactElement, useEffect, useMemo } from "react";
 import ReactDOM from "react-dom";
 import styles from "./ModalWrapper.module.scss";
+import { ReactComponent as CloseIcon } from "../../assets/icons/close.svg";
 
 interface ModalWrapperProps {
   children: ReactElement;
@@ -29,6 +30,7 @@ const ModalWrapper: FC<ModalWrapperProps> = ({ children, toggleModal }) => {
       <div onClick={(e) => e.stopPropagation()} className={styles.content}>
         {children}
       </div>
+      {/* <CloseIcon className={styles.closeIcon} onClick={toggleModal} /> */}
     </div>,
     containerElement
   );

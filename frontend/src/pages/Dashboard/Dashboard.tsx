@@ -40,7 +40,12 @@ const Dashboard = () => {
 
   return (
     <>
-      {isModalVisible && <ModalWrapper children={newBlock} />}
+      {isModalVisible && (
+        <ModalWrapper
+          toggleModal={() => setModalVisible(!isModalVisible)}
+          children={newBlock}
+        />
+      )}
       <MonthFilter />
       <Income />
       <Expenses />
@@ -55,7 +60,7 @@ const Dashboard = () => {
         {isNewBlockVisible && (
           <div className={styles.newIcons}>
             <NewIncomeIcon onClick={() => addNew("income")} />
-            <NewCategoryIcon />
+            <NewCategoryIcon onClick={() => addNew("expense")} />
             <NewExpenseIcon />
           </div>
         )}

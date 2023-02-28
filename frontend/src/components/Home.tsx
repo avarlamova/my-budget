@@ -12,6 +12,7 @@ const Home = () => {
       <Link to="/register">
         <button className={styles.button}>Register </button>
       </Link>
+      <Link to="/dashboard">Go to the dashboard</Link>
     </div>
   );
   return pageContent;

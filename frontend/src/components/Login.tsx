@@ -6,6 +6,7 @@ import { setCredentials } from "../features/auth/authSlice";
 import { useLoginMutation } from "../features/auth/authApiSlice";
 import { ReactComponent as ShowIcon } from "../assets/icons/show.svg";
 import styles from "./Login.module.scss";
+import useLocalStorage from "../hooks/useLocalStorage";
 
 const USERNAME_REGEX = /^[A-Za-z][A-Za-z0-9_]{3,29}$/;
 
@@ -21,6 +22,11 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
+  const [rememberMe, setRememberMe] = useState(false);
+  const [persistedLogin, setPersistedLogin] = useLocalStorage(
+    "rememberMe",
+    "false"
+  );
   const navigate = useNavigate(); //https://reactrouter.com/docs/en/v6/hooks/use-navigate
 
   const [login, { isLoading }] = useLoginMutation();
@@ -51,13 +57,23 @@ const Login = () => {
     }
     setPasswordType("password");
   };
+  const handleUserInput = (e: { target: HTMLInputElement }) =>
+    setUser(e?.target.value);
 
+  const handlePasswordInput = (e: { target: HTMLInputElement }) => {
+    setPassword(e?.target.value);
+  };
+
+  const handleRememberMe = () => {
+    setRememberMe(!rememberMe);
+  };
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); // no form reloading on submit
     if (validUsername) {
       try {
         const userData = await login({ user, password }).unwrap();
         dispatch(setCredentials({ ...userData, user }));
+        setPersistedLogin(rememberMe.toString());
         setUser("");
         setPassword("");
         // if login is successful
@@ -79,13 +95,6 @@ const Login = () => {
         }
       }
     }
-  };
-
-  const handleUserInput = (e: { target: HTMLInputElement }) =>
-    setUser(e?.target.value);
-
-  const handlePasswordInput = (e: { target: HTMLInputElement }) => {
-    setPassword(e?.target.value);
   };
 
   return isLoading ? ( // comes from useLoginMutation
@@ -111,7 +120,6 @@ const Login = () => {
             placeholder="Username"
           />
         </div>
-
         <div className={styles.field}>
           <input
             type={passwordType}
@@ -123,6 +131,12 @@ const Login = () => {
           />
           <ShowIcon onClick={togglePassword} className={styles.showIcon} />
         </div>
+        <input
+          type="checkbox"
+          checked={rememberMe}
+          onChange={handleRememberMe}
+        />
+        Remember me {rememberMe}
         <button
           className={styles.button}
           disabled={validUsername && password.length > 0 ? false : true}

@@ -9,6 +9,7 @@ import "./App.css";
 import React from "react";
 import Dashboard from "./pages/dashboard/Dashboard";
 import Register from "./components/Register";
+import useLocalStorage from "./hooks/useLocalStorage";
 
 function App() {
   return (

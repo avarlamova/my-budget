@@ -1,11 +1,25 @@
+@import "../styles/variables.scss";
+
 .container {
   padding: 44px 16px;
 }
 .errorMessage {
   color: red;
 }
+
+.rememberMe {
+  margin-left: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 6px;
+
+  & input[type="checkbox"] {
+    accent-color: $purple;
+  }
+}
 .formWrapper {
-  & input {
+  & input:not([type="checkbox"]) {
     width: 303px;
     height: 56px;
     border: 1px solid #f1f1fa;
@@ -22,7 +36,7 @@
   & svg {
     position: absolute;
     top: 27px;
-    right: 19px;
+    right: 22px;
     cursor: pointer;
 
     &:hover path {
@@ -36,7 +50,7 @@
   width: 343px;
   height: 56px;
   left: 16px;
-  background: #6347eb;
+  background: $purple;
   border-radius: 16px;
   font-weight: 600;
   font-size: 18px;

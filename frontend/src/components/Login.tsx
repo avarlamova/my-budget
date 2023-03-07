@@ -14,15 +14,15 @@ const Login = () => {
   const userRef = useRef<HTMLInputElement>(null);
   const errorRef = useRef<HTMLDivElement>(null);
 
-  const [passwordType, setPasswordType] = useState("password");
+  const [passwordType, setPasswordType] = useState<string>("password");
 
-  const [user, setUser] = useState("");
-  const [validUsername, setValidUsername] = useState(false);
+  const [user, setUser] = useState<string>("");
+  const [validUsername, setValidUsername] = useState<boolean>(false);
   // const isUsernameValid = useUsernameValidation(user)
-  const [password, setPassword] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
+  const [password, setPassword] = useState<string>("");
+  const [errorMessage, setErrorMessage] = useState<string>("");
 
-  const [rememberMe, setRememberMe] = useState(false);
+  const [rememberMe, setRememberMe] = useState<boolean>(false);
   const [persistedLogin, setPersistedLogin] = useLocalStorage(
     "rememberMe",
     "false"
@@ -131,12 +131,14 @@ const Login = () => {
           />
           <ShowIcon onClick={togglePassword} className={styles.showIcon} />
         </div>
-        <input
-          type="checkbox"
-          checked={rememberMe}
-          onChange={handleRememberMe}
-        />
-        Remember me {rememberMe}
+        <div className={styles.rememberMe}>
+          Remember me {rememberMe}
+          <input
+            type="checkbox"
+            checked={rememberMe}
+            onChange={handleRememberMe}
+          />
+        </div>
         <button
           className={styles.button}
           disabled={validUsername && password.length > 0 ? false : true}

@@ -6,12 +6,16 @@ import Welcome from "./components/Welcome";
 import RequireAuth from "./components/RequireAuth";
 import "./App.css";
 
-import React from "react";
+import React, { useEffect } from "react";
 import Dashboard from "./pages/dashboard/Dashboard";
 import Register from "./components/Register";
 import useLocalStorage from "./hooks/useLocalStorage";
 
+//TODO использовать https://dev.to/toomuchdesign/next-js-react-router-2kl8
 function App() {
+  const rememberMe = useLocalStorage("rememberMe", "false");
+  if (rememberMe) {
+  }
   return (
     <Routes>
       <Route path="/" element={<Layout />}>

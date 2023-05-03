@@ -4,6 +4,8 @@ import Expenses from "./Expenses";
 import Income from "./Income";
 // import ModalWrapper from "./ModalWrapper";
 // import NewExpense from "./NewExpense";
+import fade from "../../assets/transitions/Fade.module.scss";
+
 import { ReactComponent as AddIcon } from "../../assets/icons/Add.svg";
 import { ReactComponent as NewExpenseIcon } from "../../assets/icons/Expense.svg";
 import { ReactComponent as NewCategoryIcon } from "../../assets/icons/Category.svg";
@@ -56,20 +58,28 @@ const Dashboard = () => {
         // onEnter={() => setShowButton(false)}
         // onExited={() => setShowButton(true)}
       > */}
+
       <div className={styles.iconContainer}>
         {isNewBlockVisible && (
-          <div className={styles.newIcons}>
-            <NewIncomeIcon onClick={() => addNew("income")} />
-            <NewCategoryIcon onClick={() => addNew("expense")} />
-            <NewExpenseIcon />
-          </div>
+          <CSSTransition
+            in={isNewBlockVisible}
+            classNames={{ ...fade }}
+            timeout={100}
+            mountOnEnter
+            unmountOnExit
+          >
+            <div className={styles.newIcons}>
+              <NewIncomeIcon onClick={() => addNew("income")} />
+              <NewCategoryIcon onClick={() => addNew("expense")} />
+              <NewExpenseIcon />
+            </div>
+          </CSSTransition>
         )}
         <AddIcon
           onClick={() => setNewBlockVisible(!isNewBlockVisible)}
           className={styles.addIcon}
         />
       </div>
-      {/* </CSSTransition> */}
     </>
   );
 };

@@ -32,9 +32,10 @@ const NewExpense = () => {
   const handleDescriptionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setDescription(e.target.value);
   };
+
   return (
     <div>
-      <h1>Add new income</h1>
+      <h1>Add new expense</h1>
       <form onSubmit={handleSubmit} className={styles.formWrapper}>
         <div className={styles.field}>
           {/* TODO add currency symbol */}

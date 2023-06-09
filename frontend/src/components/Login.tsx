@@ -3,7 +3,10 @@ import { useRef, useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setCredentials } from "../features/auth/authSlice";
-import { useLoginMutation } from "../features/auth/authApiSlice";
+import {
+  useLoginMutation,
+  useRefreshMutation,
+} from "../features/auth/authApiSlice";
 import { ReactComponent as ShowIcon } from "../assets/icons/show.svg";
 import styles from "./Login.module.scss";
 import useLocalStorage from "../hooks/useLocalStorage";
@@ -30,12 +33,28 @@ const Login = () => {
   const navigate = useNavigate(); //https://reactrouter.com/docs/en/v6/hooks/use-navigate
 
   const [login, { isLoading }] = useLoginMutation();
+  const [refresh] = useRefreshMutation();
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (userRef && userRef.current) {
       userRef!.current.focus();
     }
+
+    const verifyRefreshToken = async () => {
+      console.log("verifying refresh token");
+      try {
+        //const response =
+        const res = await refresh("test");
+        console.log(res);
+        //const { accessToken } = response.data
+        // setTrueSuccess(true)
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    // if (persistedLogin)
+    verifyRefreshToken();
   }, []); // no dependencies => when component loads
 
   useEffect(() => {
@@ -64,16 +83,16 @@ const Login = () => {
     setPassword(e?.target.value);
   };
 
-  const handleRememberMe = () => {
-    setRememberMe(!rememberMe);
-  };
+  // const handleRememberMe = () => {
+  //   setRememberMe(!rememberMe);
+  // };
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); // no form reloading on submit
     if (validUsername) {
       try {
         const userData = await login({ user, password }).unwrap();
         dispatch(setCredentials({ ...userData, user }));
-        setPersistedLogin(rememberMe.toString());
+        // setPersistedLogin(rememberMe.toString());
         setUser("");
         setPassword("");
         // if login is successful
@@ -131,14 +150,14 @@ const Login = () => {
           />
           <ShowIcon onClick={togglePassword} className={styles.showIcon} />
         </div>
-        <div className={styles.rememberMe}>
+        {/* <div className={styles.rememberMe}>
           Remember me {rememberMe}
           <input
             type="checkbox"
             checked={rememberMe}
             onChange={handleRememberMe}
           />
-        </div>
+        </div> */}
         <button
           className={styles.button}
           disabled={validUsername && password.length > 0 ? false : true}
@@ -147,7 +166,7 @@ const Login = () => {
         </button>
       </form>
       <div className={styles.signUpContainer}>
-        Don't have an account yet?{" "}
+        No account yet?{" "}
         <Link className={styles.link} to="/register">
           Sign up
         </Link>

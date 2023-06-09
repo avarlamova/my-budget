@@ -42,7 +42,7 @@ const handleRefreshToken = async (req, res) => {
       if (err) {
         // expired refresh token
         foundUser.refreshToken = [...newRefreshTokenArray];
-        const result = await foundUser.save();
+        await foundUser.save();
       }
       if (err || foundUser.username !== decoded.username)
         return res.sendStatus(403);
@@ -68,7 +68,7 @@ const handleRefreshToken = async (req, res) => {
       );
 
       foundUser.refreshToken = [...newRefreshTokenArray, newRefreshToken];
-      const result = await foundUser.save();
+      await foundUser.save();
       // Creates Secure Cookie with refresh token
       res.cookie("jwt", newRefreshToken, {
         httpOnly: true,

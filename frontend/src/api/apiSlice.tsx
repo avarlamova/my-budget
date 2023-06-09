@@ -22,7 +22,7 @@ const baseQueryWithReauth = async (args: any, api: any, extraOptions: any) => {
     //"forbidden" for expired token
     console.log("sending refresh token");
     const refreshResult = await baseQuery("/refresh", api, extraOptions);
-    console.log(refreshResult);
+
     if (refreshResult?.data) {
       const user = api.getState().auth.user;
       // store new token

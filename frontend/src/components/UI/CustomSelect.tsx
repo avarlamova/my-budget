@@ -24,9 +24,9 @@ const CustomSelect = ({ selectText, options, handleChange }: any) => {
         <ul className={styles.list}>
           {options.map((option: any) => (
             <li
+              key={option.id}
               data-value={option}
               className={styles.listItem}
-              key={option.id}
               onClick={handleClick}
             >
               {option}

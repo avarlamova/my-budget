@@ -52,6 +52,7 @@ const Expenses = () => {
             Object.keys(expensesRatio).map((key) => {
               return (
                 <div
+                  key={key}
                   style={{ width: `${expensesRatio[key]}%` }}
                   className={styles[key]}
                 ></div>
@@ -65,6 +66,7 @@ const Expenses = () => {
           {Object.keys(categorizedExpenses).map((key) => {
             return (
               <ExpenseCategory
+                key={key}
                 category={key}
                 value={categorizedExpenses[key]}
               />

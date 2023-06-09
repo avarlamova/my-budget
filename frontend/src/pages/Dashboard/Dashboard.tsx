@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import MonthFilter from "./MonthFilter";
 import Expenses from "./Expenses";
 import Income from "./Income";
@@ -20,10 +20,13 @@ import NewIncome from "./NewIncome";
 // toggle: see transactions/see categories
 // есть historic data + filters
 // есть несколько категорий
+// выгрузка в csv
 const Dashboard = () => {
   const [isNewBlockVisible, setNewBlockVisible] = useState(false);
   const [newBlock, setNewBlock] = useState(<></>);
   const [isModalVisible, setModalVisible] = useState(false);
+  const nodeRef = useRef(null);
+
   // const expensesData = await expenses({ user }).unwrap();
 
   const addNew = (param: string) => {
@@ -51,34 +54,28 @@ const Dashboard = () => {
       <MonthFilter />
       <Income />
       <Expenses />
-      {/* <CSSTransition
-        in={isNewBlockVisible}
-        timeout={300}
-        unmountOnExit
-        // onEnter={() => setShowButton(false)}
-        // onExited={() => setShowButton(true)}
-      > */}
 
       <div className={styles.iconContainer}>
-        {isNewBlockVisible && (
+          <AddIcon
+            onClick={() => setNewBlockVisible(!isNewBlockVisible)}
+            className={styles.addIcon}
+          />
           <CSSTransition
             in={isNewBlockVisible}
             classNames={{ ...fade }}
-            timeout={100}
-            mountOnEnter
+            nodeRef={nodeRef}
+            timeout={200}
             unmountOnExit
+            mountOnEnter
+            onEnter={() => setNewBlockVisible(true)}
+            onExited={() => setNewBlockVisible(false)}
           >
-            <div className={styles.newIcons}>
+            <div ref={nodeRef} className={styles.newIcons}>
               <NewIncomeIcon onClick={() => addNew("income")} />
               <NewCategoryIcon onClick={() => addNew("expense")} />
               <NewExpenseIcon />
             </div>
           </CSSTransition>
-        )}
-        <AddIcon
-          onClick={() => setNewBlockVisible(!isNewBlockVisible)}
-          className={styles.addIcon}
-        />
       </div>
     </>
   );

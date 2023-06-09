@@ -7,7 +7,6 @@ import React from "react";
 const RequireAuth = () => {
   const token = useSelector(selectCurrentToken);
   const location = useLocation();
-  console.log(token ? "logged in" : "not logged in");
   return token ? ( // if we are logged in
     <Outlet />
   ) : (

@@ -27,6 +27,7 @@ const expensesSlice = createSlice({
     setExpenses: (state, action) => {
       const userLogin = action.payload.user;
       const expenses: any = action.payload.expenses;
+
       let expensesByCategory: any = {};
       for (const item of expenses) {
         if (expensesByCategory.hasOwnProperty(item.category)) {
@@ -72,7 +73,7 @@ export const getMemoizedBudget = createSelector(
 export const selectCategorizedExpenses = (state: RootState) =>
   state.expenses.expensesByCategory;
 
-export const selectExprensesRatio = createSelector(
+export const selectExpensesRatio = createSelector(
   selectExpensesSum,
   selectCategorizedExpenses,
   (sum, expenses) => {

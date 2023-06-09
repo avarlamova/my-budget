@@ -7,7 +7,7 @@ import { useExpensesMutation } from "../../features/expenses/expensesApiSlice";
 import {
   getMemoizedBudget,
   selectCategorizedExpenses,
-  selectExprensesRatio,
+  selectExpensesRatio,
   selectMonthlyBudget,
   setExpenses,
 } from "../../features/expenses/expensesSlice";
@@ -19,7 +19,7 @@ const Expenses = () => {
   const budget = useSelector(getMemoizedBudget);
   const [expenses, { isLoading }] = useExpensesMutation();
   const categorizedExpenses = useSelector(selectCategorizedExpenses);
-  const expensesRatio = useSelector(selectExprensesRatio);
+  const expensesRatio = useSelector(selectExpensesRatio);
 
   const dispatch = useDispatch();
   useEffect(() => {

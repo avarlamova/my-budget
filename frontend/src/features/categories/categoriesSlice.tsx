@@ -1,13 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
+import {defaultCategories} from './constants';
 
 interface CategoryState {
   [key: string]: string;
 }
 
-const defaultCategories: CategoryState = {
-  auto: "red",
-  transport: "green",
-};
 const categoriesSlice = createSlice({
   name: "categories",
   initialState: defaultCategories,

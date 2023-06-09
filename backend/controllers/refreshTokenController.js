@@ -3,7 +3,7 @@ const User = require("../model/User");
 
 const handleRefreshToken = async (req, res) => {
   const cookies = req.cookies;
-  console.log("cookies", cookies);
+  // console.log("cookies", cookies);
   if (!cookies?.jwt) return res.sendStatus(401);
 
   const refreshToken = cookies.jwt;

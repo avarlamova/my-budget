@@ -26,6 +26,7 @@ const Dashboard = () => {
   const [newBlock, setNewBlock] = useState(<></>);
   const [isModalVisible, setModalVisible] = useState(false);
   const nodeRef = useRef(null);
+  const modalRef = useRef<HTMLDivElement>(null);
 
   // const expensesData = await expenses({ user }).unwrap();
 
@@ -45,11 +46,24 @@ const Dashboard = () => {
 
   return (
     <>
+      
       {isModalVisible && (
+               <CSSTransition
+               in={isModalVisible}
+               classNames={{ ...fade }}
+               nodeRef={modalRef}
+               timeout={200}
+               unmountOnExit
+               mountOnEnter
+               onEnter={() => setModalVisible(true)}
+               onExited={() => setModalVisible(false)}
+             >
         <ModalWrapper
+          ref={modalRef}
           toggleModal={() => setModalVisible(!isModalVisible)}
           children={newBlock}
         />
+        </CSSTransition>
       )}
       <MonthFilter />
       <Income />

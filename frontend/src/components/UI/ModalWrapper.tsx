@@ -1,12 +1,13 @@
 import React from "react";
-import { FC, ReactElement, useEffect, useMemo } from "react";
+import { FC, ReactElement, useEffect, useMemo, RefObject } from "react";
 import ReactDOM from "react-dom";
 import styles from "./ModalWrapper.module.scss";
 import { ReactComponent as CloseIcon } from "../../assets/icons/close.svg";
 
 interface ModalWrapperProps {
   children: ReactElement;
-  toggleModal?: any;
+  toggleModal?: () => void;
+  ref?: RefObject<HTMLDivElement>;
 }
 
 const ModalWrapper: FC<ModalWrapperProps> = ({ children, toggleModal }) => {

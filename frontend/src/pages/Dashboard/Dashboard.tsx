@@ -16,6 +16,7 @@ import styles from "./Dashboard.module.scss";
 import ModalWrapper from "../../components/UI/ModalWrapper";
 import NewExpense from "./NewExpense";
 import NewIncome from "./NewIncome";
+import NewCategory from "./NewCategory"
 
 // toggle: see transactions/see categories
 // есть historic data + filters
@@ -39,6 +40,10 @@ const Dashboard = () => {
       case "expense":
         setNewBlock(<NewExpense />);
         break;
+      case "category":
+        setNewBlock(<NewCategory />);
+        break;
+
       default:
         break;
     }
@@ -46,18 +51,17 @@ const Dashboard = () => {
 
   return (
     <>
-      
       {isModalVisible && (
-               <CSSTransition
-               in={isModalVisible}
-               classNames={{ ...fade }}
-               nodeRef={modalRef}
-               timeout={200}
-               unmountOnExit
-               mountOnEnter
-               onEnter={() => setModalVisible(true)}
-               onExited={() => setModalVisible(false)}
-             >
+        <CSSTransition
+          in={isModalVisible}
+          classNames={{ ...fade }}
+          nodeRef={modalRef}
+          timeout={200}
+          unmountOnExit
+          mountOnEnter
+          onEnter={() => setModalVisible(true)}
+          onExited={() => setModalVisible(false)}
+        >
         <ModalWrapper
           ref={modalRef}
           toggleModal={() => setModalVisible(!isModalVisible)}
@@ -86,8 +90,8 @@ const Dashboard = () => {
           >
             <div ref={nodeRef} className={styles.newIcons}>
               <NewIncomeIcon onClick={() => addNew("income")} />
-              <NewCategoryIcon onClick={() => addNew("expense")} />
-              <NewExpenseIcon />
+              <NewCategoryIcon onClick={() => addNew("category")} />
+              <NewExpenseIcon onClick={() => addNew("expense")} />
             </div>
           </CSSTransition>
       </div>

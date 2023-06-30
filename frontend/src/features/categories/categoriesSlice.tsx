@@ -2,7 +2,14 @@ import { createSlice } from "@reduxjs/toolkit";
 import {defaultCategories} from './constants';
 
 interface CategoryState {
-  [key: string]: string;
+  categories: Category[];
+}
+
+interface Category {
+  id: string;
+  name: string;
+  color: string;
+  icon: string;
 }
 
 const categoriesSlice = createSlice({
@@ -10,7 +17,7 @@ const categoriesSlice = createSlice({
   initialState: defaultCategories,
   reducers: {
     addCategory: (state, action) => {
-      const { key, color } = action.payload;
+      const { key, color, icon } = action.payload;
       // console.log(state.defaultCategories);
       //   state.defaultCategories = color;
     },
@@ -25,6 +32,10 @@ export const selectCategories = (state: CategoryState) => {
   return Object.keys(state.categories);
 };
 
-export const selectColors = (state: CategoryState, key: string) => {
-  return state.categories[key];
+export const selectColors = (state: CategoryState) => {
+  return state.categories.map(category => category.color)
+};
+
+export const selectIcons = (state: CategoryState) => {
+  return state.categories.map(category => category.icon)
 };

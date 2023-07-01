@@ -4,15 +4,13 @@ import { selectCategories } from "../../features/categories/categoriesSlice";
 import styles from "./NewCategory.module.scss";
 import { ReactComponent as ArrowDown } from "../../assets/icons/selectArrow.svg";
 import { selectIcons } from "../../features/categories/categoriesSlice";
+import IconPicker from "../../components/UI/IconPicker";
 
 const NewCategory = () => {
   const [isDropdownShown, setDropdownShown] = useState(false);
-  // use currency
   const [categoryName, setCategoryName] = useState("");
   const [categoryIcon, setCategoryIcon] = useState("")
   const [description, setDescription] = useState("");
-  const categories = useSelector(selectCategories);
-  const categoryIcons = useSelector(selectIcons)
 
   const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
@@ -55,17 +53,7 @@ const NewCategory = () => {
             <div className={styles.selectedCategory}>{categoryIcon}</div>
             <ArrowDown className={styles.selectIcon} />
           </div>
-          {isDropdownShown && (
-            <div className={styles.categories}>
-              {categories.map((category) => {
-                return (
-                  <div className={styles.option} onClick={handleIconChange}>
-                    {category}
-                  </div>
-                );
-              })}
-            </div>
-          )}
+          {isDropdownShown && <IconPicker onIconChange = {handleIconChange} />}
         </div>
 
         <div className={styles.field}>

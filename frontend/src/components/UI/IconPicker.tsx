@@ -3,7 +3,7 @@ import {categoriesIcons} from '../../features/categories/constants'
 import styles from './IconPicker.module.scss'
 
 //TODO remove any
-const IconPicker = (onIconChange: any) => {
+const IconPicker = ({onIconChange}: any) => {
     return (
         <div className={styles.wrapper}>
              {categoriesIcons.map((icon: string) => {

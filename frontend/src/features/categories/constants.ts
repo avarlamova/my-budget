@@ -27,7 +27,7 @@ export const defaultCategories = [
 ]
 
 export const categoriesIcons = [
-  "home", "flower", "food-apple", "forest", "leaf", "tractor", "tree", "weather-cloudy", "bird",
+  "home", "flower", "forest", "leaf", "tractor", "tree", "weather-cloudy", "bird",
   "cat", "dog", "fish", "owl", "headset", "music-note", "volume-high", "car", "bank", "bitcoin",
   "cash", "credit-card", "hand-coin", "finance", "piggy-bank", "cellphone", "phone", "glasses",
   "hanger", "hat-fedora", "shoe-heel", "shoe-formal", "sunglasses", "tshirt-crew", "tshirt-v",

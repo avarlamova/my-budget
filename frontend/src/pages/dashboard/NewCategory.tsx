@@ -21,10 +21,10 @@ const NewCategory = () => {
     setCategoryName(e.target.value.trim());
   };
 
-  const handleIconChange = (e: React.MouseEvent<HTMLDivElement>) => {
-    const target = e.target as HTMLDivElement;
-    console.log(target)
-    setCategoryIcon(target.innerHTML);
+  const handleIconChange = (e: React.MouseEvent<HTMLElement>) => {
+    const target = e.target as HTMLElement;
+    const elementClasses = Array.from(target.classList)
+    setCategoryIcon(elementClasses.filter(el => el!== 'mdi')[0]);
     setDropdownShown(false);
   };
 

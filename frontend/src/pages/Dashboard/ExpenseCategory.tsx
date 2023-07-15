@@ -11,8 +11,8 @@ const ExpenseCategory = (category: { category: string; value: number }) => {
       <div className={styles.title}>
         <CategoryIcon className={styles.icon} />
         <h2>{category.category}</h2>
-        <p> $ {category.value} </p>
       </div>
+      <h3> ${category.value} </h3>
     </div>
   );
 };

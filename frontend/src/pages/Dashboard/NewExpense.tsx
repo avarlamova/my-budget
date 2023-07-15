@@ -14,6 +14,7 @@ const NewExpense = () => {
 
   const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
+    //TODO add new expense
     console.log(sum, description, selectedCategory);
   };
 
@@ -21,6 +22,7 @@ const NewExpense = () => {
     if (+e.target.value) {
       setSum(Number(e.target.value));
     }
+    else setSum(0);
   };
 
   const handleCategoryChange = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -59,8 +61,8 @@ const NewExpense = () => {
             <div className={styles.categories}>
               {categories.map((category) => {
                 return (
-                  <div className={styles.option} onClick={handleCategoryChange}>
-                    {category}
+                  <div key={category.id} className={styles.option} onClick={handleCategoryChange}>
+                    {category.name}
                   </div>
                 );
               })}
@@ -76,7 +78,7 @@ const NewExpense = () => {
             value={description}
           />
         </div>
-        <button type="submit" className={styles.button}>
+        <button type="submit" disabled={!(sum && selectedCategory)}  className={styles.button}>
           Add expense
         </button>
       </form>

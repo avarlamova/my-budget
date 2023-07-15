@@ -4,6 +4,8 @@ import { ReactComponent as ArrowDown } from "../../assets/icons/selectArrow.svg"
 import { selectCategories } from "../../features/categories/categoriesSlice";
 import { useSelector } from "react-redux";
 
+// TODO extend newexpense component
+
 const NewIncome = () => {
   const [selectedCategory, setSelectedCategory] = useState("Category");
   const [isDropdownShown, setDropdownShown] = useState(false);
@@ -19,7 +21,7 @@ const NewIncome = () => {
   const handleSumChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (+e.target.value) {
       setSum(Number(e.target.value));
-    }
+    } else setSum(0);
   };
 
   const handleDescriptionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -39,7 +41,7 @@ const NewIncome = () => {
             value={sum}
           />
         </div>
-
+        {/* TODO add category */}
         <div className={styles.field}>
           <input
             type="text"
@@ -48,7 +50,7 @@ const NewIncome = () => {
             value={description}
           />
         </div>
-        <button type="submit" className={styles.button}>
+        <button type="submit" disabled={!sum} className={styles.button}>
           Add income
         </button>
       </form>

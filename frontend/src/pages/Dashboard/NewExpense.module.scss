@@ -81,4 +81,9 @@
   font-size: 18px;
   border: none;
   padding: 8px;
+
+  &[disabled] {
+    cursor: default;
+    background-color: #fd626e;
+  }
 }

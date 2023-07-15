@@ -59,7 +59,6 @@ const Expenses = () => {
               );
             })}
         </div>
-        {/* Add new expense <ModalWrapper children={<NewExpense />} /> */}
       </div>
       {categorizedExpenses && (
         <div className={styles.expensesContainer}>

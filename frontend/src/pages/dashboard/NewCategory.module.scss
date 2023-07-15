@@ -2,7 +2,9 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
+
     & input {
+      font-family: "DM Sans", sans-serif;
       width: 303px;
       border: 1px solid #f1f1fa;
       border-radius: 16px;
@@ -17,6 +19,19 @@
   }
   .dropDown {
     position: relative;
+  }
+
+  .field {
+    position: relative;
+
+    i {
+      position: absolute;
+      right: 21px;
+      bottom: 7px;
+      font-size: 22px;
+      cursor: pointer;
+      color: #91919f;
+    }
   }
   
   .select {
@@ -41,45 +56,51 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    display: flex;
+    gap: 7px;
+    align-items: center;
+
+    .selectedCategoryIcon {
+      i {
+        background: #f2f2f2;
+        border-radius: 5px;
+        padding: 3px;
+
+        // &:hover {
+        //   transform: scale(1.3);
+        //   transition: transform .15s;
+        // }
+      }
+      &:hover {
+        transform: scale(1.3);
+        transition: transform .15s;
+      }
+    }
   }
   
   .fieldWrapper {
     position: relative;
+
+    svg {
+      position: absolute;
+      right: 16px;
+      bottom: 6px;
+    }
   }
-  
-//   .selectIcon {
-//     position: absolute;
-//     right: 16px;
-//     bottom: 6px;
-//   }
-  
-//   .categories {
-//     background: #fff;
-//     border-radius: 16px;
-//     display: flex;
-//     gap: 17px;
-//     max-height: 248px;
-//     width: 300px;
-//     padding: 16px;
-//     flex-direction: column;
-  
-//     cursor: pointer;
-//   }
-//   .option {
-//     &:hover {
-//       color: #5233ff;
-//       font-weight: bold;
-//     }
-//   }
   
   .button {
     font-family: inherit;
     cursor: pointer;
-    background-color: rgb(0, 119, 255);
+    background-color: #0077ff;
     border-radius: 16px;
     color: white;
     font-size: 18px;
     border: none;
     padding: 8px;
+
+    &[disabled] {
+      cursor: default;
+      background-color: #4099ff;
+    }
   }
   

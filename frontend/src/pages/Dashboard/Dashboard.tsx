@@ -74,10 +74,6 @@ const Dashboard = () => {
       <Expenses />
 
       <div className={styles.iconContainer}>
-          <AddIcon
-            onClick={() => setNewBlockVisible(!isNewBlockVisible)}
-            className={styles.addIcon}
-          />
           <CSSTransition
             in={isNewBlockVisible}
             classNames={{ ...fade }}
@@ -94,6 +90,10 @@ const Dashboard = () => {
               <NewExpenseIcon onClick={() => addNew("expense")} />
             </div>
           </CSSTransition>
+          <AddIcon
+            onClick={() => setNewBlockVisible(!isNewBlockVisible)}
+            className={styles.addIcon}
+          />
       </div>
     </>
   );

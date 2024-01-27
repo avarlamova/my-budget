@@ -55,6 +55,7 @@ const Register = () => {
       setValidUsername(true);
       setLoginErrorMessage("");
     }
+    setServerErrorMessage("")
   }, [user, user.length]); // validate username every time it changes
 
   useEffect(() => {
@@ -72,6 +73,7 @@ const Register = () => {
       setValidPassword(true);
       setPasswordErrorMessage("");
     }
+    setServerErrorMessage("")
   }, [password, password.length]); // validate password
 
   useEffect(() => {
@@ -101,7 +103,10 @@ const Register = () => {
           setServerErrorMessage("Missing username or password");
         } else if (err.originalStatus === 401) {
           setServerErrorMessage("Unauthorized");
-        } else {
+        } else if (err.originalStatus === 409) {
+          setServerErrorMessage("This user already exists");
+        }
+         else {
           setServerErrorMessage("Login failed");
         }
         if (errorRef && errorRef.current) {

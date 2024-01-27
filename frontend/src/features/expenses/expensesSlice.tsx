@@ -29,6 +29,7 @@ const expensesSlice = createSlice({
       const expenses: any = action.payload.expenses;
 
       let expensesByCategory: any = {};
+      console.log(expenses)
       for (const item of expenses) {
         if (expensesByCategory.hasOwnProperty(item.category)) {
           expensesByCategory[item.category] += item.amount;
